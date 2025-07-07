@@ -1,0 +1,232 @@
+/* public/css/edit-beranda.css */
+
+/* Gaya yang SANGAT SPESIFIK untuk edit-beranda.php */
+
+/* Gaya body (jika ada override dari style.css) */
+body {
+    background-color: var(--background-page); /* Changed to light background */
+    color: var(--text-primary); /* Default text color for the body */
+    transition: opacity 0.5s ease-out; /* Smooth fade-out for page transitions */
+    /* Pastikan transisi untuk body.fade-out-page juga diatur di style.css global */
+}
+
+/* Navbar links styling for the transparent/glossy state with blue text (override for this page) */
+.nav-link, .dropdown-toggle, #auth-link-main, #header-title-text, #mobile-header-title-text {
+    color: var(--pmii-darkblue) !important; /* Always blue for this page's header */
+    text-shadow: none; /* No text shadow for clear blue text */
+    /* ... transisi lainnya dari style.css ... */
+}
+/* Mobile menu button icon color (should also be blue on this header) */
+.menu-icon i {
+    color: var(--pmii-darkblue) !important;
+}
+
+/* Underline effect for nav links, in blue tone */
+.nav-link::after, .dropdown-toggle::after, #auth-link-main::after {
+    background-color: var(--pmii-blue); /* Blue underline */
+    box-shadow: none; /* No glow */
+    /* ... transisi lainnya dari style.css ... */
+}
+
+/* Hover effect for nav links, slightly lighter blue */
+.nav-link:hover, .dropdown-toggle:hover, #auth-link-main:hover {
+    color: var(--pmii-blue) !important; /* Lighter blue on hover */
+    text-shadow: none; /* Ensure no text shadow */
+    /* ... transisi lainnya dari style.css ... */
+}
+/* Active link styling when on current page */
+.nav-link.active-nav-link {
+    color: var(--pmii-blue) !important; /* Lighter blue for active state */
+    font-weight: 700;
+    text-shadow: none;
+}
+.nav-link.active-nav-link::after {
+    background-image: linear-gradient(to right, var(--pmii-blue), var(--pmii-darkblue)); /* Blue gradient underline */
+    box-shadow: none;
+}
+
+
+/* Styling formulir & kartu */
+.form-input {
+    background-color: var(--input-bg);
+    /* ... gaya lainnya dari style.css ... */
+}
+.form-input.invalid {
+    border-color: var(--danger);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25);
+}
+.form-label {
+    color: var(--text-secondary); /* Labels in light theme should be dark */
+    /* ... gaya lainnya dari style.css ... */
+}
+
+/* Pesan respons formulir */
+.form-message {
+    /* ... gaya dasar dari style.css ... */
+}
+.form-message-success { background-color: #d1fae5; color: #065f46; }
+.form-message-error { background-color: #fce7e7; color: #cc3333; }
+.form-message-info { background-color: #dbeafe; color: #1e40af; }
+
+
+/* Styling kartu */
+.card {
+    background-color: white;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+    border: 1px solid var(--border-color);
+}
+.card h2 {
+    color: var(--pmii-darkblue); /* Judul kartu dalam warna biru gelap */
+    border-bottom: 2px solid var(--pmii-yellow); /* Garis bawah kuning */
+}
+.card h3 {
+    color: var(--text-secondary); /* Sub-judul kartu dalam warna sekunder */
+}
+
+/* Styling daftar item dinamis (berita, kegiatan) */
+.item-list-entry {
+    background-color: var(--background-light); /* Latar belakang terang untuk item daftar */
+    cursor: grab; /* Kursor grab untuk item yang bisa di-drag */
+    border: 1px solid transparent; /* Untuk umpan balik visual drag */
+}
+.item-list-entry:nth-child(odd) {
+    background-color: var(--background-light);
+}
+.item-list-entry:hover {
+    background-color: #e9ecef;
+}
+.item-list-entry.dragging {
+    opacity: 0.5;
+    border: 1px dashed var(--pmii-blue);
+}
+.item-list-entry.drag-over {
+    border-top: 2px solid var(--pmii-blue); /* Indikator visual untuk target drop */
+}
+
+/* Styling modal kustom (untuk halaman ini, jika berbeda dari global) */
+.modal-overlay { /* Ini adalah modal untuk drag&drop/konfirmasi penghapusan */
+    /* ... gaya dasar dari style.css ... */
+    z-index: 1000; /* Pastikan z-index sesuai dengan konteks halaman */
+}
+.modal-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    transform: translateY(-20px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.modal-overlay.open .modal-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Area unggah gambar */
+.image-upload-area {
+    width: 100%;
+    height: 120px; /* Disesuaikan untuk pratinjau lebih kecil di item daftar */
+    background-color: var(--input-bg);
+    border: 2px dashed var(--border-color);
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.image-upload-area:hover {
+    border-color: var(--pmii-blue);
+    background-color: rgba(0, 92, 151, 0.05);
+}
+.image-upload-area input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+.image-preview-upload {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none; /* Tersembunyi secara default */
+}
+.image-upload-placeholder-text {
+    color: var(--text-muted);
+    font-size: 0.8rem; /* Font lebih kecil untuk item daftar */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    pointer-events: none; /* Memungkinkan klik melewati input */
+}
+.image-upload-placeholder-text i {
+    font-size: 1.5rem; /* Ikon lebih kecil untuk item daftar */
+    color: var(--text-muted);
+}
+/* Untuk gambar galeri, buat responsif di dalam grid */
+.gallery-item-edit-image {
+    width: 100%;
+    height: 80px; /* Tinggi tetap untuk thumbnail di daftar */
+    object-fit: cover;
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Styling Footer (jika override dari style.css) */
+.main-footer {
+    background-color: var(--pmii-darkblue);
+    color: #cbd5e1;
+    /* ... padding dan margin dari style.css ... */
+}
+.main-footer p {
+    color: #e5e7eb;
+}
+.main-footer .footer-title {
+    color: white;
+    font-weight: 600;
+}
+.main-footer img {
+    filter: none; /* Removed filter to show original logo colors */
+    -webkit-filter: none;
+}
+
+/* Scroll To Top Button Styling (jika override dari style.css) */
+#scrollToTopBtnManajemenAkun { /* Menggunakan ID yang konsisten dengan manajemen-akun.html */
+    background-color: var(--pmii-yellow);
+    color: var(--pmii-darkblue);
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    box-shadow: var(--shadow-lg);
+    transition: background-color 0.2s, transform 0.2s;
+    position: fixed; /* Fixed position on viewport */
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 50; /* Ensure it's above other content */
+    display: none; /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+}
+#scrollToTopBtnManajemenAkun:hover {
+    transform: scale(1.1) translateY(-2px); /* Slight lift and scale on hover */
+}

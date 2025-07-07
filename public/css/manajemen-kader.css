@@ -1,0 +1,321 @@
+/* public/css/manajemen-kader.css */
+
+/* Gaya yang SANGAT SPESIFIK untuk manajemen-kader.php */
+
+/* Main content wrapper untuk transisi fade-in (jika tidak diatur global di style.css) */
+.main-content-wrapper {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: pageFadeInUp 0.7s 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+@keyframes pageFadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+/* Judul halaman */
+.page-title {
+    color: var(--pmii-yellow);
+    font-weight: 800;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
+/* Gaya Form Modern (dari manajemen-akun.html, diadaptasi untuk tema gelap) */
+.form-section-modern {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    color: white; /* Ensure text inside is white for contrast */
+}
+.form-section-modern:hover {
+    box-shadow: var(--shadow-lg);
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(253, 216, 53, 0.5);
+}
+.form-section-modern h2, .form-section-modern h3 {
+    color: var(--pmii-yellow);
+    border-bottom: 2px solid white;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+    font-weight: 700;
+}
+
+.input-group-modern {
+    position: relative;
+    margin-bottom: 1.75rem; /* Increased margin for floating label to breathe */
+}
+.form-input-modern, select.form-input-modern, textarea.form-input-modern, input[type="file"].form-input-modern, input[type="month"].form-input-modern {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    padding-top: 1.25rem; /* Space for floating label */
+    border: 1px solid rgba(255, 255, 255, 0.4); /* Lighter border for dark background */
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: white; /* White text for dark background */
+    background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent dark background */
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+.form-input-modern::placeholder {
+    color: rgba(255, 255, 255, 0.6); /* Lighter placeholder */
+}
+select.form-input-modern {
+    padding-top: 0.875rem;
+    padding-bottom: 0.875rem;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E"); /* White chevron */
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1.25em 1.25em;
+}
+textarea.form-input-modern {
+    min-height: 80px;
+    resize: vertical;
+}
+.form-input-modern:focus, select.form-input-modern:focus, textarea.form-input-modern:focus, input[type="file"].form-input-modern:focus, input[type="month"].form-input-modern:focus {
+    border-color: var(--pmii-yellow); /* Yellow border on focus */
+    background-color: rgba(0, 0, 0, 0.3); /* Slightly darker on focus */
+    box-shadow: 0 0 0 3px rgba(253, 216, 53, 0.2); /* Yellow glow */
+    outline: none;
+}
+.form-input-modern.disabled, .form-input-modern:disabled {
+    background-color: rgba(255, 255, 255, 0.1); /* Lighter disabled background */
+    cursor: not-allowed;
+    color: rgba(255, 255, 255, 0.5); /* Muted text color */
+}
+.form-input-modern.disabled + .form-label-modern,
+.form-input-modern:disabled + .form-label-modern {
+    color: rgba(255, 255, 255, 0.5); /* Muted label color */
+}
+.form-label-modern {
+    position: absolute;
+    left: 1rem;
+    top: 0.875rem;
+    color: rgba(255, 255, 255, 0.7); /* Lighter label for dark background */
+    font-size: 0.875rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    background-color: transparent;
+    padding: 0 0.25rem;
+}
+.form-input-modern:focus + .form-label-modern,
+.form-input-modern.has-value + .form-label-modern,
+select.form-input-modern:focus + .form-label-modern,
+select.form-input-modern.has-value + .form-label-modern,
+textarea.form-input-modern:focus + .form-label-modern,
+textarea.form-input-modern.has-value + .form-label-modern,
+input[type="file"].form-input-modern:focus + .form-label-modern,
+input[type="file"].form-input-modern.has-value + .form-label-modern,
+input[type="month"].form-input-modern:focus + .form-label-modern,
+input[type="month"].form-input-modern.has-value + .form-label-modern {
+    top: -0.5rem; /* Move up for floating effect */
+    left: 0.75rem;
+    font-size: 0.75rem;
+    color: var(--pmii-yellow); /* Yellow color when active */
+    background-color: var(--pmii-darkblue); /* Dark blue background for label */
+    border-radius: 0.25rem;
+}
+
+/* Button Modern (adapted from manajemen-akun.html) */
+.btn-modern {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    box-shadow: var(--shadow-sm);
+}
+.btn-modern:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-md);
+}
+.btn-modern:active {
+    transform: translateY(0px) scale(0.98);
+}
+.btn-primary-modern {
+    background-color: var(--pmii-yellow); /* Primary button is yellow in this theme */
+    color: var(--pmii-darkblue);
+}
+.btn-primary-modern:hover {
+    background-color: #fbc02d; /* Darker yellow on hover */
+    color: var(--pmii-blue); /* Lighter blue text on hover */
+}
+.btn-danger-modern {
+    background-color: var(--danger-color);
+    color: white;
+}
+.btn-danger-modern:hover {
+    background-color: var(--danger-hover-color);
+}
+.btn-outline-modern {
+    background-color: transparent;
+    color: var(--pmii-yellow); /* Outline text is yellow */
+    border: 1px solid var(--pmii-yellow); /* Outline border is yellow */
+}
+.btn-outline-modern:hover {
+    background-color: rgba(253, 216, 53, 0.1); /* Slight yellow fill on hover */
+    color: white; /* White text on hover */
+}
+
+/* Form Message (adapted from manajemen-akun.html) */
+.form-message-success { background-color: #dcfce7; color: #166534; border: 1px solid #86efac; padding: 0.75rem 1rem; border-radius: 0.5rem; font-size: 0.875rem; }
+.form-message-error { background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 0.75rem 1rem; border-radius: 0.5rem; font-size: 0.875rem; }
+.form-message-info { background-color: #bfdbfe; color: #1e40af; border: 1px solid #93c5fd; padding: 0.75rem 1rem; border-radius: 0.5rem; font-size: 0.875rem; }
+
+
+/* Table Styling (adapted from manajemen-akun.html) */
+.table-modern-wrapper {
+    overflow-x: auto;
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+    backdrop-filter: blur(5px); /* Frosted glass effect */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Lighter border */
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-sm);
+}
+.table-modern { min-width: 100%; border-collapse: collapse; }
+.table-modern th, .table-modern td {
+    padding: 0.875rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Lighter border for dark table */
+    font-size: 0.875rem;
+    white-space: nowrap;
+    color: white;
+}
+.table-modern thead th {
+    background-color: rgba(0, 0, 0, 0.3); /* Darker background for table header */
+    color: var(--pmii-yellow); /* Yellow header text */
+    font-weight: 600;
+    position: sticky; top: 0;
+    z-index: 10;
+}
+.table-modern tbody tr:nth-child(even) { background-color: rgba(0, 0, 0, 0.1); } /* Darker stripe */
+.table-modern tbody tr:hover { background-color: rgba(253, 216, 53, 0.2); } /* Yellowish hover */
+.table-modern .action-icon {
+    color: var(--pmii-yellow); /* Default yellow for action icons */
+    margin-right: 0.5rem;
+    cursor: pointer;
+    transition: color 0.2s, transform 0.2s;
+}
+.table-modern .action-icon:hover { transform: scale(1.15); }
+.table-modern .action-icon.fa-edit:hover { color: white; } /* White on hover for edit */
+.table-modern .action-icon.fa-trash-alt:hover { color: var(--danger-color); } /* Red on hover for delete */
+.table-modern tbody tr.fade-in {
+    opacity: 0;
+    animation: fadeInRow 0.5s forwards;
+}
+@keyframes fadeInRow {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Stats Section (adapted from dashboard-statistik.html) */
+.stats-section {
+    margin-top: 3rem;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+}
+.stats-title {
+    color: var(--pmii-yellow);
+    font-weight: 700;
+    border-bottom: 2px solid white;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+.chart-container {
+    max-width: 400px;
+    height: 300px;
+    margin: 1.5rem auto;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.numerical-stat-card {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s;
+}
+.numerical-stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    background-color: rgba(0, 0, 0, 0.3);
+}
+.numerical-stat-card .stat-number {
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+    transition: color 0.2s;
+    color: white;
+}
+.numerical-stat-card .stat-label {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+/* Specific colors for numerical stats */
+.stat-total { color: var(--pmii-yellow); }
+.stat-mutaqid { color: #86efac; } /* Greenish */
+.stat-mujahid { color: #fcd34d; } /* Orange-yellow */
+.stat-mujtahid { color: #c4b5fd; } /* Purple-blue */
+.stat-muharik { color: #f9a8d4; } /* Pinkish */
+
+/* Footer Styling */
+/* Asumsi footer sudah di style.css, jadi ini dihapus dari file spesifik */
+/* .main-footer {
+    background-color: var(--pmii-darkblue);
+    color: #cbd5e1;
+    padding: 3rem 1rem;
+}
+.main-footer p { color: #e5e7eb; }
+.main-footer .footer-title { color: white; font-weight: 600; }
+.main-footer img { filter: brightness(0) invert(1) opacity(0.8); } */
+
+
+/* Scroll To Top Button Styling */
+#scrollToTopBtn { /* Ini harus sesuai dengan ID di HTML */
+    background-color: var(--pmii-yellow);
+    color: var(--pmii-darkblue);
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    box-shadow: var(--shadow-lg);
+    transition: background-color 0.2s, transform 0.2s;
+    position: fixed; /* Fixed position on viewport */
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 50; /* Ensure it's above other content */
+    display: none; /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+}
+#scrollToTopBtn:hover {
+    transform: scale(1.1) translateY(-2px); /* Slight lift and scale on hover */
+}
+/* Animated sections visibility */
+.animated-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: opacity, transform;
+}
+.animated-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.animated-section.is-visible > * {
+    transition-delay: var(--stagger-delay, 0s);
+}

@@ -1,0 +1,863 @@
+/* public/css/digilib.css */
+
+/* CSS Variables for consistent theming based on PMII colors and general UI elements */
+:root {
+    --pmii-blue: #005c97;
+    --pmii-darkblue: #004a7c;
+    --pmii-yellow: #fdd835;
+    --pmii-purple: #6A0DAD; /* Added purple color variable */
+    --text-primary: #111827; /* Dark text for light backgrounds */
+    --text-secondary: #374151; /* Medium dark text */
+    --text-muted: #6b7280; /* Lighter text for subtle info */
+    --border-color: #e5e7eb; /* Light gray border */
+    --background-light: #f9fafb; /* Very light background */
+    --background-page: #f3f4f6; /* Default page background */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --input-bg: white; /* Default for input fields */
+    --navbar-height: 70px; /* Estimated height of your navbar */
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --danger-hover: #dc2626;
+}
+
+/* Base body styles, enabling smooth scrolling, Inter font preference, and fade-out transition */
+body {
+    font-family: 'Inter', 'Poppins', sans-serif; /* Prioritize Inter */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    background: linear-gradient(135deg, var(--pmii-blue) 0%, var(--pmii-darkblue) 100%); /* Apply gradient background */
+    color: white; /* Default text color for the body */
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    transition: opacity 0.5s ease-out; /* Smooth fade-out for page transitions */
+    position: relative;
+}
+
+/* Pattern overlay for the body */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+        radial-gradient(circle at 15% 25%, rgba(253, 216, 53, 0.05) 1px, transparent 1.5px),
+        radial-gradient(circle at 85% 75%, rgba(253, 216, 53, 0.03) 1px, transparent 1.5px),
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0.5px, transparent 1px);
+    background-size: 80px 80px, 100px 100px, 60px 60px;
+    animation: subtlePatternMoveBody 60s linear infinite;
+    z-index: 0;
+}
+@keyframes subtlePatternMoveBody {
+    0% { background-position: 0 0, 0 0, 0 0; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Class for fading out the page content */
+body.fade-out-page {
+    opacity: 0;
+}
+
+/* Main content wrapper to correctly position content below the potentially transparent/sticky navbar */
+.main-content-wrapper {
+    flex-grow: 1; /* Allows content to push footer to bottom */
+    padding-top: var(--navbar-height); /* Push content down to start below the navbar */
+    position: relative; /* Establishes stacking context */
+    z-index: 1; /* Ensures content is above elements rendered below it */
+}
+
+/* Navbar Styling: sticky position and dynamic appearance on scroll */
+.navbar-sticky {
+    position: sticky; top: 0; z-index: 50;
+    background-color: transparent; /* Initially transparent */
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Subtle initial shadow */
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    transition: padding 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Navbar links styling for the glossy/transparent state */
+.nav-link, .dropdown-toggle, #auth-link-main {
+    color: white !important; /* Always white for glossy state */
+    text-shadow: 0 0 5px rgba(255,255,255,0.3); /* Subtle text shadow for white text */
+    transform: translateY(0); /* Initial state for transform animation */
+    transition: color 0.25s ease-out, text-shadow 0.25s ease-out, transform 0.25s ease-out; /* Include transform in transition */
+}
+
+/* Underline effect for nav links, brighter for glossy state */
+.nav-link::after, .dropdown-toggle::after, #auth-link-main::after {
+    content: ''; display: block; width: 0; height: 2px;
+    background-color: var(--pmii-yellow); /* Base color */
+    box-shadow: 0 0 10px rgba(253, 216, 53, 0.8); /* Brighter glow */
+    transition: width 0.3s ease-out;
+}
+.nav-link:hover::after, .dropdown-toggle:hover::after, #auth-link-main:hover::after {
+    width: 100%;
+}
+
+/* Hover effect for nav links */
+.nav-link:hover, .dropdown-toggle:hover, #auth-link-main:hover {
+    color: var(--pmii-yellow) !important; /* Yellow on hover for glossy state */
+    text-shadow: 0 0 15px var(--pmii-yellow); /* Stronger glow on hover */
+    transform: translateY(-1px); /* Add the subtle lift effect back */
+}
+
+/* Dropdown chevron rotation on hover */
+.dropdown-toggle i {
+    transition: transform 0.2s ease-out;
+}
+.dropdown-toggle:hover i {
+    transform: rotate(180deg) scale(1.1);
+}
+
+/* Dropdown Menu specific styles for modern look */
+.dropdown-menu {
+    background-color: var(--pmii-darkblue); /* Darker blue background for dropdown menu */
+    backdrop-filter: blur(5px); /* Apply blur to dropdown menus */
+    color: white; /* Ensure text in dropdown is white for good contrast */
+    box-shadow: var(--shadow-lg);
+    z-index: 100; min-width: 280px; border-radius: 0.5rem;
+    opacity: 0; visibility: hidden; transform: translateY(10px);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0.3s;
+    position: absolute; /* Ensures it's positioned relative to parent dropdown */
+    min-width: 150px; /* Adjust minimum width as needed */
+    left: 50%; /* Center dropdown under its parent button */
+    transform: translateX(-50%) translateY(10px); /* Center and offset initially */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+    max-height: 300px; /* Added: Max height for scrollable dropdown */
+    overflow-y: auto; /* Added: Enable vertical scrolling */
+}
+.dropdown:hover .dropdown-menu,
+.dropdown.active .dropdown-menu { /* .active class for mobile/JS control */
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0); /* Final state on hover/active */
+}
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    color: white; /* White text for dropdown items */
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+    font-size: 0.875rem;
+    white-space: nowrap; /* Prevent text wrapping */
+}
+.dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Lighter background on hover */
+    color: var(--pmii-yellow); /* Yellow text on hover */
+}
+.dropdown-item i {
+    margin-right: 0.75rem;
+    color: var(--pmii-yellow); /* Icon color matches theme */
+}
+
+/* Mobile Menu Transitions */
+#mobile-menu-content { 
+    position: fixed; 
+    top: 0; 
+    right: 0; 
+    height: 100vh; /* Full viewport height */
+    width: calc(100% - 50px); /* Adjust width to leave a small gap on smaller screens */
+    max-width: 320px; /* Max width for larger mobiles */
+    background: linear-gradient(to bottom, var(--pmii-blue), var(--pmii-darkblue)); /* Gradient background */
+    color: white; 
+    padding: 6px; 
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.4); /* Strong shadow */
+    z-index: 40; 
+    transform: translateX(100%); /* Start off-screen */
+    opacity: 0; 
+    visibility: hidden; 
+    pointer-events: none; /* Prevent interaction when hidden */
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease-out, visibility 0.35s;
+    overflow-y: auto; /* Enable scrolling for long content */
+    box-sizing: border-box; /* Include padding in element's total width and height */
+    padding-bottom: 2rem; /* Add padding to the bottom */
+}
+/* State when menu is active/open */
+#mobile-menu-content.menu-active {
+    transform: translateX(0); /* Slide in */
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto; /* Allow interaction when visible */
+}
+
+/* Mobile Menu Overlay */
+#mobile-menu-overlay {
+    position: fixed;
+    inset: 0; /* Cover the whole viewport */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+    backdrop-filter: blur(5px); /* Blur effect on the overlay */
+    z-index: 30;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease-out, visibility 0.3s;
+}
+/* State when overlay is active/open */
+#mobile-menu-overlay.menu-active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+/* Mobile menu links */
+.mobile-nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+    border-radius: 0.375rem; /* rounded-md */
+}
+.mobile-nav-link i {
+    margin-right: 0.75rem; /* mr-3 */
+    width: 1.5rem; /* Fixed width for icons */
+    text-align: center;
+    color: var(--pmii-yellow);
+}
+.mobile-nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--pmii-yellow);
+}
+
+.mobile-submenu-title {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem; /* text-sm */
+    font-weight: 600; /* font-semibold */
+    color: var(--pmii-yellow); /* Yellow color for sub-menu titles */
+    margin-top: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 0.5rem;
+}
+.mobile-submenu-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1.5rem; /* Indent sub-menu items */
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+    font-size: 0.8125rem; /* text-sm slightly smaller */
+    border-radius: 0.375rem; /* rounded-md */
+}
+.mobile-submenu-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--pmii-yellow);
+}
+.mobile-submenu-item:hover i {
+    color: var(--pmii-yellow);
+}
+
+/* General Button Styling for consistent look and feel */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; text-decoration: none;
+    box-shadow: var(--shadow-md);
+    z-index: 10; /* Ensure buttons are clickable */
+    position: relative; /* Needed for z-index to work */
+}
+.btn:hover {
+     box-shadow: var(--shadow-lg);
+     transform: translateY(-2px) scale(1.03); /* Subtle lift and scale on hover */
+}
+.btn:active {
+    transform: translateY(0px) scale(0.98); /* Slight press down effect on click */
+    box-shadow: var(--shadow-sm);
+}
+/* Primary button with PMII blue color */
+.btn-primary-pmii {
+    background-color: var(--pmii-blue); color: white;
+}
+.btn-primary-pmii:hover { background-color: var(--pmii-darkblue); }
+/* Secondary button with PMII yellow color */
+.btn-secondary-pmii {
+    background-color: var(--pmii-yellow); color: var(--pmii-darkblue);
+}
+.btn-secondary-pmii:hover { background-color: #fbc02d; }
+
+/* Auth Link Styling (Login/Logout button in navbar) */
+#auth-link-main, #auth-link-mobile { 
+    transition: all 0.25s ease; /* Ensure all properties transition */
+    padding: 0.625rem 1.25rem; 
+    font-size: 0.875rem; 
+}
+/* Styles for logged-out state (yellow button) */
+.logged-out-styles {
+    background-color: var(--pmii-yellow);
+    color: var(--pmii-blue);
+}
+.logged-out-styles:hover {
+    background-color: #fbc02d;
+}
+/* Styles for logged-in state (red logout button) */
+#auth-link-main.logout-active, #auth-link-mobile.logout-active {
+    background-image: linear-gradient(to right, #ef4444, #dc2626) !important; /* Red gradient */
+    color: white !important;
+}
+#auth-link-main.logout-active:hover, #auth-link-mobile.logout-active:hover {
+    background-image: linear-gradient(to right, #dc2626, #b91c1c) !important; /* Darker red on hover */
+}
+
+/* Custom Confirmation Modal Styles */
+.custom-confirm-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Dark semi-transparent background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999; /* Ensure it's on top of everything */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.custom-confirm-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+.custom-confirm-modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-lg);
+    max-width: 400px; /* Fixed max width for the modal */
+    width: 90%; /* Responsive width */
+    text-align: center;
+    transform: translateY(-20px) scale(0.95); /* Initial state for animation */
+    opacity: 0;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s ease;
+}
+.custom-confirm-modal-overlay.active .custom-confirm-modal-content {
+    transform: translateY(0) scale(1); /* Final state for animation */
+    opacity: 1;
+}
+.custom-confirm-modal-content h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--pmii-darkblue);
+    margin-bottom: 1rem;
+}
+.custom-confirm-modal-content p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+.custom-confirm-modal-content .modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+.custom-confirm-modal-content .modal-actions .btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+}
+
+/* New general background style for blue sections with subtle pattern */
+.section-pmii-bg-pattern {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--pmii-blue) 0%, var(--pmii-darkblue) 100%);
+    color: white; /* Default text color for the entire section */
+}
+/* Mobile menu logo and text size adjustment */
+#mobile-menu-content > div.flex.justify-between.items-center.mb-10 > a > img {
+    height: 2.25rem; /* h-9 */
+    width: auto; /* Maintain aspect ratio */
+}
+#mobile-menu-content > div.flex.justify-between.items-center.mb-10 > a > span {
+    font-size: 1.125rem; /* text-lg */
+    font-weight: 600; /* font-semibold */
+}
+/* Pseudo-element for pattern within blue sections */
+.section-pmii-bg-pattern::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+        radial-gradient(circle at 15% 25%, rgba(253, 216, 53, 0.07) 1px, transparent 1.5px),
+        radial-gradient(circle at 85% 75%, rgba(253, 216, 53, 0.05) 1px, transparent 1.5px),
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.04) 0.5px, transparent 1px);
+    background-size: 80px 80px, 100px 100px, 60px 60px;
+    animation: subtlePatternMoveContactKeyframe 40s linear infinite;
+    z-index: 0;
+}
+/* Keyframe for background pattern movement */
+@keyframes subtlePatternMoveContactKeyframe {
+    0% { background-position: 0 0, 0 0, 0 0; }
+    100% { background-position: 80px 80px, -100px -100px, 60px -60px; }
+}
+/* Ensure specific elements like titles are yellow in these sections */
+.section-pmii-bg-pattern .section-title {
+    color: var(--pmii-yellow);
+}
+
+/* Specific styles for digilib.html content */
+.page-title {
+    color: white; /* Changed from pmii-darkblue to white */
+    font-weight: 800; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
+.digilib-search-bar {
+    position: relative;
+    max-width: 700px; 
+    margin: 0 auto 3rem auto; 
+}
+.digilib-search-bar input {
+    width: 100%;
+    padding: 1rem 1.5rem; 
+    padding-right: 4rem; 
+    border: 1px solid rgba(255, 255, 255, 0.4); /* Border for dark background */
+    border-radius: 9999px; 
+    font-size: 1rem; 
+    color: white; /* Text color for dark background */
+    background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent background */
+    box-shadow: var(--shadow-md);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.digilib-search-bar input::placeholder {
+    color: rgba(255, 255, 255, 0.6); /* Placeholder color */
+}
+.digilib-search-bar input:focus {
+    border-color: var(--pmii-yellow); /* Yellow on focus */
+    box-shadow: 0 0 0 4px rgba(253, 216, 53, 0.2); /* Yellow glow on focus */
+    outline: none;
+}
+.digilib-search-bar button {
+    position: absolute;
+    right: 0.6rem; 
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--pmii-yellow);
+    color: var(--pmii-darkblue);
+    border-radius: 50%;
+    width: 2.75rem; 
+    height: 2.75rem; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, transform 0.2s;
+    box-shadow: var(--shadow-sm);
+}
+.digilib-search-bar button:hover {
+    background-color: #fbc02d;
+    transform: translateY(-50%) scale(1.08);
+    box-shadow: var(--shadow-md);
+}
+.digilib-search-bar button i { font-size: 1.125rem; } 
+
+.digilib-category-card {
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Lighter border */
+    border-radius: 0.75rem; 
+    padding: 1.75rem; 
+    text-align: center;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s;
+    text-decoration: none;
+    color: white; /* Text color inside card */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: var(--shadow-md);
+    backdrop-filter: blur(5px); /* Frosted glass effect */
+}
+.digilib-category-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--pmii-yellow); /* Yellow border on hover */
+    background-color: rgba(255, 255, 255, 0.15); /* Slightly less transparent */
+}
+.digilib-category-card .card-icon-wrapper {
+    background-color: var(--pmii-yellow); /* Yellow icon background */
+    color: var(--pmii-darkblue); /* Dark blue icon color */
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem; 
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,92,151,0.2);
+}
+.digilib-category-card:hover .card-icon-wrapper {
+    transform: rotate(-10deg) scale(1.1); 
+    background-color: #fbc02d; /* Darker yellow on hover */
+}
+.digilib-category-card .card-icon-wrapper i {
+    font-size: 2rem; 
+}
+.digilib-category-card h4 {
+    font-size: 1.25rem; 
+    font-weight: 600; 
+    color: var(--pmii-yellow); /* Yellow title */
+    margin-bottom: 0.375rem; 
+}
+.digilib-category-card p {
+    font-size: 0.875rem; 
+    color: rgba(255, 255, 255, 0.8); /* Lighter text for description */
+    line-height: 1.5;
+}
+.digilib-category-card.external-link {
+    background: linear-gradient(135deg, var(--pmii-yellow), #fabe28);
+    color: var(--pmii-darkblue);
+}
+.digilib-category-card.external-link:hover {
+    border-color: var(--pmii-darkblue);
+}
+.digilib-category-card.external-link .card-icon-wrapper {
+    background-color: var(--pmii-darkblue);
+    color: var(--pmii-yellow);
+}
+.digilib-category-card.external-link:hover .card-icon-wrapper {
+    background-color: #003355; 
+}
+.digilib-category-card.external-link h4 { color: var(--pmii-darkblue); }
+.digilib-category-card.external-link p { color: #4a3b00;  }
+
+.btn-modern {
+    padding: 0.75rem 1.5rem; 
+    border-radius: 0.5rem; 
+    font-weight: 600;
+    font-size: 0.875rem; 
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
+    display: inline-flex; align-items: center; justify-content: center; 
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    box-shadow: var(--shadow-sm);
+}
+.btn-modern:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-md);
+}
+.btn-modern:active {
+    transform: translateY(0px) scale(0.98);
+}
+.btn-primary-pmii { 
+    background-color: var(--pmii-blue); color: white;
+}
+.btn-primary-pmii:hover { background-color: var(--pmii-darkblue); }
+
+.btn-outline-modern {
+    background-color: transparent;
+    color: var(--pmii-yellow); /* Changed from pmii-darkblue to pmii-yellow */
+    border: 1px solid var(--pmii-yellow); /* Changed from pmii-blue to pmii-yellow */
+}
+.btn-outline-modern:hover {
+    background-color: var(--pmii-yellow); /* Changed from pmii-blue to pmii-yellow */
+    color: var(--pmii-darkblue); /* Changed from white to pmii-darkblue */
+    border-color: var(--pmii-yellow); /* Changed from pmii-blue to pmii-yellow */
+}
+
+/* Footer Styling */
+.internal-footer {
+    background-color: var(--pmii-blue); /* Solid blue background for footer */
+    padding: 2.5rem 1rem;
+}
+
+/* Ensure footer image maintains aspect ratio and text is white */
+.internal-footer img {
+    height: 3rem; /* Fixed height, e.g., 48px */
+    width: auto; /* Auto width to maintain aspect ratio */
+    object-fit: contain; /* Ensure logo fits within its bounds without distortion */
+}
+
+.internal-footer p {
+    color: white; /* Change all paragraph text in footer to white */
+}
+#scrollToTopBtnDigilib {
+    background-color: var(--pmii-yellow);
+    color: var(--pmii-darkblue);
+    width: 2.75rem; 
+    height: 2.75rem; 
+    border-radius: 50%; 
+    box-shadow: var(--shadow-lg);
+    transition: background-color 0.2s, transform 0.2s;
+}
+#scrollToTopBtnDigilib:hover {
+    background-color: #fbc02d; 
+    transform: scale(1.1) translateY(-2px);
+}
+/* Style for no search results message */
+.no-results-message {
+    text-align: center;
+    font-size: 1.125rem;
+    color: rgba(255, 255, 255, 0.7); /* Lighter text for dark background */
+    padding: 2rem;
+    grid-column: 1 / -1; /* Span across all columns */
+}
+
+/* Styles for search results list */
+.search-results-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive columns */
+    gap: 1.5rem;
+}
+.search-result-item {
+    background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent dark background */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Lighter border */
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    backdrop-filter: blur(5px); /* Frosted glass effect */
+}
+.search-result-item:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+.search-result-item .item-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--pmii-yellow); /* Yellow title */
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+.search-result-item .item-meta {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.8); /* Lighter meta text */
+    margin-bottom: 0.75rem;
+}
+.search-result-item .item-abstract {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7); /* Lighter abstract text */
+    margin-bottom: 1rem;
+    flex-grow: 1; /* Allows abstract to take available space */
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limit abstract to 3 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.search-result-item .item-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+.search-results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+    color: white; /* Header text color */
+}
+.search-results-header h2 {
+    color: var(--pmii-yellow); /* Changed from pmii-darkblue to pmii-yellow */
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-lg);
+    max-width: 500px;
+    width: 90%;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--pmii-darkblue);
+}
+
+.modal-body {
+    line-height: 1.6;
+}
+
+.modal-body p {
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary); /* Text color for modal body */
+}
+.modal-body strong {
+    color: var(--text-primary); /* Stronger text for labels */
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding-top: 1rem;
+    margin-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Custom Message Box Styles */
+#customMessageBox {
+    background-color: #333;
+    color: white;
+    min-width: 250px;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    right: 1rem; /* Adjust position */
+    top: 1rem; /* Adjust position */
+    z-index: 9999;
+}
+#customMessageBox.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+#customMessageBox.info {
+    background-color: #2196F3; /* Blue for info */
+}
+#customMessageBox.success {
+    background-color: #4CAF50; /* Green for success */
+}
+#customMessageBox.error {
+    background-color: #f44336; /* Red for error */
+}
+
+/* Pagination styles */
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+.pagination-controls button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--pmii-yellow); /* Yellow border */
+    background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent background */
+    color: var(--pmii-yellow); /* Yellow text */
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+.pagination-controls button:hover:not(:disabled) {
+    background-color: var(--pmii-yellow); /* Yellow background on hover */
+    color: var(--pmii-darkblue); /* Dark blue text on hover */
+}
+.pagination-controls button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    color: rgba(255, 255, 255, 0.5); /* Lighter text for disabled */
+}
+.pagination-controls button.active {
+    background-color: var(--pmii-yellow); /* Active yellow background */
+    color: var(--pmii-darkblue); /* Active dark blue text */
+    font-weight: 600;
+}
+.pagination-info {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7); /* Lighter text for info */
+}
+
+/* Recent searches and files styles */
+.recent-section-container {
+    background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent dark background */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Lighter border */
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    box-shadow: var(--shadow-md);
+    backdrop-filter: blur(5px); /* Frosted glass effect */
+    color: white; /* Default text color for section */
+}
+.recent-section-container h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--pmii-yellow); /* Yellow title */
+    margin-bottom: 1rem;
+}
+.recent-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+.recent-item {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: rgba(255, 255, 255, 0.1); /* Lighter semi-transparent background */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Lighter border */
+    border-radius: 9999px;
+    color: rgba(255, 255, 255, 0.9); /* Lighter text color */
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    max-width: 250px; /* Limit width */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.recent-item:hover {
+    background-color: var(--pmii-yellow); /* Yellow background on hover */
+    color: var(--pmii-darkblue); /* Dark blue text on hover */
+    box-shadow: var(--shadow-sm);
+}
+
+/* Search Suggestions styles */
+#search-suggestions {
+    max-height: 200px;
+    overflow-y: auto;
+    border-top: none;
+    background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent white for suggestions */
+    border: 1px solid var(--border-color);
+    color: var(--text-primary); /* Dark text for suggestions */
+}
+#search-suggestions div {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    color: var(--text-secondary); /* Darker text for suggestions */
+    font-size: 0.95rem;
+}
+#search-suggestions div:hover {
+    background-color: var(--background-page);
+    color: var(--pmii-darkblue);
+}

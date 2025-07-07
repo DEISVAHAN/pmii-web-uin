@@ -1,0 +1,196 @@
+/* public/css/verifikasi-surat.css */
+
+/* Judul halaman */
+.page-title {
+    color: white; /* Diubah dari default menjadi putih untuk latar belakang gelap */
+    font-weight: 800;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
+/* Content Card (umum untuk halaman ini) */
+.table-container {
+    background-color: rgba(255, 255, 255, 0.1); /* Latar belakang gelap semi-transparan */
+    backdrop-filter: blur(5px);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-md);
+    overflow-x: auto; /* Memungkinkan scrolling horizontal untuk tabel */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white; /* Warna teks default untuk konten tabel */
+}
+.table-container h2 { /* Untuk judul di dalam table-container, misal "Daftar Surat Masuk" */
+    color: var(--pmii-yellow); /* Judul kuning untuk kontras */
+    border-bottom: 2px solid white; /* Garis bawah putih */
+    padding-bottom: 0.5rem;
+    display: inline-block;
+    font-weight: 700;
+}
+
+/* Gaya Tabel */
+.table {
+    width: 100%;
+    min-width: 800px; /* Pastikan lebar minimum agar tidak terlalu sempit */
+    border-collapse: collapse;
+}
+.table-header-custom { /* Untuk header di atas tabel */
+    background-color: rgba(0, 0, 0, 0.1); /* Latar belakang header lebih gelap */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+.table th {
+    padding: 0.875rem 1.5rem;
+    text-align: left;
+    font-size: 0.75rem;
+    color: var(--pmii-yellow); /* Kuning untuk header tabel */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+.table td {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Border lebih terang untuk baris */
+    font-size: 0.875rem;
+    white-space: nowrap; /* Mencegah teks terbungkus */
+    color: white; /* Pastikan teks sel berwarna putih */
+}
+.table tbody tr:last-child td { border-bottom: none; }
+.table tbody tr:hover { background-color: rgba(255, 255, 255, 0.05); } /* Efek hover halus */
+
+/* Status badge (konsisten dengan pengajuan-surat) */
+.status-badge {
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.35rem 0.9rem;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    border: 1px solid;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.status-badge i {
+    font-size: 0.7rem;
+}
+.status-pending { border-color: var(--warning); color: var(--warning); background-color: rgba(245, 158, 11, 0.15); }
+.status-approved { border-color: var(--success); color: var(--success); background-color: rgba(34, 197, 94, 0.15); }
+.status-rejected { border-color: var(--danger); color: var(--danger); background-color: rgba(239, 68, 68, 0.15); }
+.status-revision { border-color: var(--danger); color: var(--danger); background-color: rgba(239, 68, 68, 0.15); } /* New 'revision' status */
+
+/* Input Form Modern (konsisten dengan pengajuan-surat.css) */
+.form-input-modern, select.form-input-modern, textarea.form-input-modern {
+    width: 100%; padding: 0.875rem 1rem; padding-top: 1.25rem;
+    border: 1px solid var(--border-color); border-radius: 0.5rem;
+    font-size: 0.875rem; color: var(--text-primary);
+    background-color: var(--input-bg);
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+.form-input-modern::placeholder {
+    color: var(--text-muted);
+}
+select.form-input-modern {
+     padding-top: 0.875rem; padding-bottom: 0.875rem; appearance: none;
+     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+     background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1.25em 1.25em;
+}
+textarea.form-input-modern { padding-top: 1.25rem; min-height: 80px; }
+.form-input-modern:focus, select.form-input-modern:focus, textarea.form-input-modern:focus {
+    border-color: var(--pmii-blue); background-color: white;
+    box-shadow: 0 0 0 3px rgba(0, 92, 151, 0.15); outline: none;
+}
+.form-label-modern { /* Diadaptasi dari pengajuan-surat.css */
+    position: absolute; left: 1rem; top: 0.875rem;
+    color: var(--text-muted); font-size: 0.875rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none; background-color: transparent; padding: 0 0.25rem;
+}
+.form-input-modern:focus + .form-label-modern,
+.form-input-modern.has-value + .form-label-modern,
+select.form-input-modern:focus + .form-label-modern,
+select.form-input-modern.has-value + .form-label-modern,
+textarea.form-input-modern:focus + .form-label-modern,
+textarea.form-input-modern.has-value + .form-label-modern {
+    top: 0.375rem; left: 0.75rem; font-size: 0.75rem;
+    color: var(--pmii-blue); background-color: white; border-radius: 0.25rem;
+}
+
+/* Tombol Modern (konsisten dengan pengajuan-surat.css) */
+.btn-modern {
+    padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 600;
+    font-size: 0.875rem; transition: all 0.25s;
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; border: none; text-decoration: none;
+    box-shadow: var(--shadow-sm);
+}
+.btn-modern:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.btn-modern:active { transform: translateY(0px) scale(0.98); }
+.btn-primary-modern { background-color: var(--pmii-blue); color: white; }
+.btn-primary-modern:hover { background-color: var(--pmii-darkblue); }
+.btn-danger-modern { background-color: var(--danger); color: white; }
+.btn-danger-modern:hover { background-color: var(--danger-hover); }
+.btn-outline-modern {
+    background-color: transparent; color: var(--pmii-blue); border: 1px solid var(--pmii-blue);
+}
+.btn-outline-modern:hover { background-color: rgba(0,92,151,0.05); }
+
+/* Modal Styling (konsisten dengan pengajuan-surat.css) */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0,0,0,0.6);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s;
+    z-index: 2000;
+}
+.modal-overlay.active { opacity: 1; visibility: visible; }
+.modal-content {
+    background-color: white; padding: 2rem; border-radius: 0.75rem;
+    box-shadow: var(--shadow-lg); width: 100%; max-width: 500px;
+    transform: scale(0.95); opacity: 0;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s;
+}
+.modal-overlay.active .modal-content { transform: scale(1); opacity: 1; }
+.modal-header { border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;}
+.modal-title { font-size: 1.25rem; font-weight: 600; color: var(--pmii-darkblue); }
+.modal-footer { border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 0.75rem; }
+
+/* Notifikasi dalam modal */
+#notificationModal .modal-content {
+    background-color: white;
+    color: var(--text-primary);
+}
+#notificationModal h3 {
+    color: var(--text-primary);
+}
+#notificationModal p {
+    color: var(--text-secondary);
+}
+
+/* Footer Styling (konsisten dengan pengajuan-surat.css) */
+.main-footer {
+    background-color: var(--pmii-darkblue);
+    color: #cbd5e1;
+    padding: 3rem 1rem;
+    margin-top: auto;
+}
+.main-footer p { color: #e5e7eb; }
+.main-footer .footer-title { color: white; font-weight: 600; }
+.main-footer img { filter: brightness(0) invert(1) opacity(0.8); }
+
+/* Scroll To Top Button Styling (konsisten dengan pengajuan-surat.css) */
+#scrollToTopBtn {
+    background-color: var(--pmii-yellow);
+    color: var(--pmii-darkblue);
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    box-shadow: var(--shadow-lg);
+    transition: background-color 0.2s, transform 0.2s;
+    position: fixed; /* Fixed position on viewport */
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 50; /* Ensure it's above other content */
+    display: none; /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+}
+#scrollToTopBtn:hover {
+    transform: scale(1.1) translateY(-2px); /* Slight lift and scale on hover */
+}

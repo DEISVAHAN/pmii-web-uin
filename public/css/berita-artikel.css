@@ -1,0 +1,89 @@
+/* public/css/berita-artikel.css */
+
+/* Page Header Section Styling */
+.page-header-section {
+    background: linear-gradient(135deg, var(--pmii-blue), var(--pmii-darkblue));
+    color: white;
+    padding: 4rem 1rem;
+    text-align: center;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 2rem;
+}
+.page-header-section h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+.page-header-section p {
+    font-size: 1.125rem;
+    margin-top: 0.5rem;
+    opacity: 0.9;
+}
+
+/* News Item Styling */
+.news-item {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid var(--border-color); /* Added border for definition */
+}
+.news-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+.news-item img {
+    width: 100%;
+    height: 200px; /* Fixed height for consistent display */
+    object-fit: cover;
+}
+.news-item-content {
+    padding: 1.5rem;
+    flex-grow: 1; /* Allows content to take available space */
+    display: flex;
+    flex-direction: column;
+}
+.news-item-content .category {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--pmii-blue);
+    background-color: var(--pmii-yellow);
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.5rem;
+    align-self: flex-start; /* Align category badge to start */
+    margin-bottom: 0.75rem;
+}
+.news-item-content .title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--pmii-darkblue);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+}
+.news-item-content .description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    flex-grow: 1; /* Allows description to take available space */
+    margin-bottom: 1rem;
+    display: -webkit-box; /* For line-clamp */
+    -webkit-line-clamp: 3; /* Limit to 3 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.news-item-content .read-more {
+    font-weight: 600;
+    color: var(--pmii-blue);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    align-self: flex-start; /* Align link to start */
+    margin-top: auto; /* Push to bottom */
+}
+.news-item-content .read-more:hover {
+    color: var(--pmii-darkblue);
+}

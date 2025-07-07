@@ -1,0 +1,110 @@
+/* public/css/admin-dashboard-komisariat.css */
+
+/* Gaya yang SANGAT SPESIFIK untuk admin-dashboard-komisariat.php */
+
+/* Gaya untuk banner selamat datang */
+.welcome-banner {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    color: white;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+.welcome-banner i {
+    font-size: 3rem;
+    color: var(--pmii-yellow);
+    opacity: 0.9;
+}
+.welcome-banner h2 {
+    color: white;
+    font-weight: 700;
+}
+.welcome-banner p {
+    color: rgba(255,255,255,0.85);
+    font-size: 0.875rem;
+}
+
+/* Gaya untuk kartu dashboard */
+.dashboard-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    padding: 1.75rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.25s ease-in-out, border-color 0.25s ease-in-out;
+    text-decoration: none;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.dashboard-card:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: var(--shadow-lg);
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: var(--pmii-yellow);
+}
+.dashboard-card .card-icon-wrapper {
+    background-color: var(--pmii-yellow);
+    color: var(--pmii-darkblue);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,92,151,0.2);
+}
+.dashboard-card:hover .card-icon-wrapper {
+    transform: rotateY(15deg) scale(1.1);
+    background-color: #fbc02d;
+}
+.dashboard-card h4 {
+    color: var(--pmii-yellow);
+    font-weight: 600;
+    font-size: 1.125rem;
+}
+.dashboard-card p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
+/* Gaya untuk teks yang lebih terang di bagian gelap */
+.text-pmii-blue { /* Ini akan membuat teks kuning di latar belakang gelap */
+    color: var(--pmii-yellow);
+}
+.text-text-muted { /* Ini akan membuat teks abu-abu terang di latar belakang gelap */
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Gaya untuk tombol scroll ke atas */
+#scrollToTopBtnDashboard {
+    background-color: var(--pmii-yellow);
+    color: var(--pmii-darkblue);
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    box-shadow: var(--shadow-lg);
+    transition: background-color 0.2s, transform 0.2s;
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 50;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+#scrollToTopBtnDashboard:hover {
+    transform: scale(1.1) translateY(-2px);
+}

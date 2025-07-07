@@ -1,0 +1,16 @@
+<IfModule mod_rewrite.c>
+    # Mengaktifkan Mesin Rewrite URL
+    RewriteEngine On
+
+    # PENTING: Menentukan path dasar untuk rewrite.
+    # Sesuaikan '/pmii-web-uin/public/' jika nama folder Anda berbeda.
+    RewriteBase /pmii-web-uin/public/
+
+    # Kondisi: Jika permintaan BUKAN untuk file yang ada secara fisik...
+    RewriteCond %{REQUEST_FILENAME} !-f
+    # Dan jika permintaan BUKAN untuk direktori yang ada secara fisik...
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Aturan: Arahkan semua permintaan lainnya ke index.php
+    RewriteRule ^ index.php [L]
+</IfModule>

@@ -1,0 +1,205 @@
+/* public/css/edit-profil-kader.css */
+
+/* Gaya yang SANGAT SPESIFIK untuk edit-profil-kader.php */
+
+/* Main content wrapper untuk transisi fade-in (jika tidak diatur global di style.css) */
+.main-content-wrapper {
+    flex-grow: 1;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: pageFadeInUp 0.7s 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+@keyframes pageFadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+/* Header internal (jika berbeda dari navbar utama atau header halaman lainnya) */
+.internal-header {
+    background-color: white;
+    box-shadow: var(--shadow-md);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky; top: 0; z-index: 1000;
+}
+.internal-header .logo-text { color: var(--pmii-blue); font-weight: 700; }
+.internal-header #admin-name-header { color: var(--text-secondary); font-weight: 500; }
+.internal-header #auth-info-header {
+    background-color: var(--pmii-blue); color: white;
+    padding: 0.6rem 1.2rem; border-radius: 0.5rem;
+    transition: background-color 0.25s, transform 0.2s, box-shadow 0.25s;
+    text-decoration: none; font-weight: 500; box-shadow: var(--shadow-sm);
+}
+.internal-header #auth-info-header:hover {
+    background-color: var(--pmii-darkblue); transform: translateY(-2px); box-shadow: var(--shadow-md);
+}
+.internal-header #auth-info-header.logout-active { background-color: #ef4444 !important; }
+.internal-header #auth-info-header.logout-active:hover { background-color: #dc2626 !important; }
+
+
+/* Judul halaman */
+.page-title { color: var(--pmii-darkblue); font-weight: 800; text-shadow: 1px 1px 2px rgba(0,0,0,0.05); }
+
+/* Bagian konten/kartu umum */
+.content-section {
+    background-color: white; padding: 2rem; border-radius: 0.75rem;
+    box-shadow: var(--shadow-md); border: 1px solid var(--border-color);
+}
+.content-section h2, .content-section h3 {
+    color: var(--pmii-darkblue); border-bottom: 2px solid var(--pmii-yellow);
+    padding-bottom: 0.5rem; display: inline-block; font-weight: 700;
+}
+
+/* Gaya input form modern (floating label) */
+.input-group-modern { position: relative; margin-bottom: 1.5rem; }
+.form-input-modern, select.form-input-modern, textarea.form-input-modern {
+    width: 100%; padding: 0.875rem 1rem; padding-top: 1.25rem;
+    border: 1px solid var(--border-color); border-radius: 0.5rem;
+    font-size: 0.875rem; color: var(--text-primary);
+    background-color: var(--input-bg);
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+select.form-input-modern {
+     padding-top: 0.875rem; padding-bottom: 0.875rem; appearance: none;
+     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+     background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1.25em 1.25em;
+}
+textarea.form-input-modern { padding-top: 1.25rem; min-height: 80px; }
+.form-input-modern:focus, select.form-input-modern:focus, textarea.form-input-modern:focus {
+    border-color: var(--pmii-blue); background-color: white;
+    box-shadow: 0 0 0 3px rgba(0, 92, 151, 0.15); outline: none;
+}
+.form-input-modern[readonly] {
+    background-color: #e2e8f0; /* bg-gray-200 */
+    cursor: not-allowed;
+}
+.form-label-modern {
+    position: absolute; left: 1rem; top: 0.875rem;
+    color: var(--text-muted); font-size: 0.875rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none; background-color: transparent; padding: 0 0.25rem;
+}
+.form-input-modern:focus + .form-label-modern,
+.form-input-modern.has-value + .form-label-modern,
+select.form-input-modern:focus + .form-label-modern,
+select.form-input-modern.has-value + .form-label-modern,
+textarea.form-input-modern:focus + .form-label-modern,
+textarea.form-input-modern.has-value + .form-label-modern {
+    top: 0.375rem; left: 0.75rem; font-size: 0.75rem;
+    color: var(--pmii-blue); background-color: white; border-radius: 0.25rem;
+}
+
+/* Tombol modern (untuk Simpan, Ajukan, Unduh) */
+.btn-modern {
+    padding: 0.625rem 1.25rem; border-radius: 0.5rem; font-weight: 500;
+    font-size: 0.875rem; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; border: none; text-decoration: none;
+    box-shadow: var(--shadow-sm);
+}
+.btn-modern:hover { transform: translateY(-2px) scale(1.02); box-shadow: var(--shadow-md); }
+.btn-modern:active { transform: translateY(0px) scale(0.98); }
+.btn-primary-modern { background-color: var(--pmii-blue); color: white; }
+.btn-primary-modern:hover { background-color: var(--pmii-darkblue); }
+.btn-danger-modern { background-color: var(--danger-color); color: white; }
+.btn-danger-modern:hover { background-color: var(--danger-hover-color); }
+.btn-outline-modern {
+    background-color: transparent; color: var(--pmii-blue); border: 1px solid var(--pmii-blue);
+}
+.btn-outline-modern:hover { background-color: rgba(0,92,151,0.05); }
+
+/* Pesan respons form (sukses/error) */
+.form-message-success { background-color: #dcfce7; color: #166534; border: 1px solid #86efac; padding: 0.75rem 1rem; border-radius: 0.5rem; font-size: 0.875rem; }
+.form-message-error { background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 0.75rem 1rem; border-radius: 0.5rem; font-size: 0.875rem; }
+
+/* Unggah foto profil */
+.profile-picture-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+.profile-picture-preview {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--pmii-blue);
+    box-shadow: var(--shadow-md);
+    background-color: #f0f0f0;
+}
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    background-color: var(--pmii-yellow);
+    color: var(--pmii-darkblue);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    box-shadow: var(--shadow-sm);
+}
+.upload-btn-wrapper:hover {
+    background-color: #fbc02d;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+.upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Gaya untuk grup unggah file (KTP, KTM, Sertifikat) */
+.file-upload-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.file-upload-group .upload-btn-wrapper {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 150px; /* Sesuaikan lebar tombol */
+}
+.file-upload-group .file-name-display {
+    flex-grow: 1;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0.5rem 0;
+}
+.file-upload-group .required-label {
+    color: #ef4444; /* Warna merah untuk indikator wajib */
+    font-size: 0.75rem;
+    margin-left: 0.5rem;
+    font-weight: 500;
+}
+
+/* Scroll To Top Button Styling */
+#scrollToTopBtnEditProfil {
+    background-color: var(--pmii-yellow);
+    color: var(--pmii-darkblue);
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    box-shadow: var(--shadow-lg);
+    transition: background-color 0.2s, transform 0.2s;
+    position: fixed; /* Fixed position on viewport */
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 50; /* Ensure it's above other content */
+    display: none; /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+}
+#scrollToTopBtnEditProfil:hover {
+    transform: scale(1.1) translateY(-2px); /* Slight lift and scale on hover */
+}

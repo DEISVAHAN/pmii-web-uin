@@ -1,0 +1,52 @@
+# .gitignore
+# File dan direktori yang harus diabaikan oleh Git
+
+# Konfigurasi Lingkungan
+.env
+.env.backup
+.env.*.local
+
+# Direktori Dependensi
+/vendor/
+/node_modules/ # Jika menggunakan npm/yarn untuk frontend atau tools JS backend
+
+# Direktori Penyimpanan
+/storage/
+/bootstrap/cache/ # Jika framework menghasilkan file cache di sini
+
+# Log Files
+*.log
+/logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# File Sistem Operasi
+.DS_Store
+Thumbs.db
+.idea/ # Jika menggunakan PhpStorm/IntelliJ IDEA
+.vscode/ # Jika menggunakan VS Code (opsional, bisa di-commit jika ingin berbagi pengaturan editor)
+*.sublime-project
+*.sublime-workspace
+
+# File Kompilasi/Build (jika ada)
+/public/build/
+/public/hot
+
+# File Testing
+/.phpunit.result.cache
+/phpunit.xml
+/coverage/
+
+# File Temporary/Cache lainnya
+*.sqlite
+*.sqlite3
+*.db
+*.bak
+*.tmp
+*.swp
+*.swo
+.vagrant/
+.php_cs.cache
+.phpstorm.meta.php
+.phpstorm.meta.php.temp

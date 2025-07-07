@@ -1,0 +1,199 @@
+/* public/css/pengajuan-surat.css */
+
+/* Gaya yang SANGAT SPESIFIK untuk pengajuan-surat.php */
+
+/* Judul halaman */
+.page-title {
+    color: white;
+    font-weight: 800;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
+/* Content Card (general for this page) */
+.content-card {
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+    backdrop-filter: blur(5px); /* Frosted glass effect */
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Lighter border */
+    color: white; /* Default text color for card content */
+}
+.content-card:hover {
+    box-shadow: var(--shadow-lg);
+    background-color: rgba(255, 255, 255, 0.15); /* Slightly less transparent on hover */
+    border-color: rgba(253, 216, 53, 0.5); /* Yellow border on hover */
+}
+.content-card h2 {
+    color: var(--pmii-yellow);
+    border-bottom: 2px solid white;
+    padding-bottom: 0.5rem; display: inline-block;
+    font-weight: 700;
+}
+
+/* Form inputs (specific to this page, overriding style.css if needed) */
+.form-input, select.form-input, textarea.form-input {
+    width: 100%; padding: 0.875rem 1rem;
+    padding-top: 1.25rem; /* Space for floating label */
+    border: 1px solid rgba(255, 255, 255, 0.4); /* Lighter border for dark background */
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: white; /* White text for dark background */
+    background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent dark background */
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+.form-input::placeholder {
+    color: rgba(255, 255, 255, 0.6); /* Lighter placeholder */
+}
+select.form-input {
+     appearance: none;
+     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E"); /* White chevron */
+     background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1.25em 1.25em;
+}
+.form-input:focus, select.form-input:focus, textarea.form-input:focus {
+    border-color: var(--pmii-yellow); /* Yellow border on focus */
+    background-color: rgba(0, 0, 0, 0.3); /* Slightly darker on focus */
+    box-shadow: 0 0 0 3px rgba(253, 216, 53, 0.2); outline: none;
+}
+.form-input:disabled {
+    background-color: rgba(255, 255, 255, 0.1); /* Lighter disabled background */
+    cursor: not-allowed;
+    color: rgba(255, 255, 255, 0.5);
+}
+.form-label { /* Re-added for consistency */
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8); /* Lighter label for dark background */
+    margin-bottom: 0.375rem;
+}
+.form-input-file {
+    width: 100%; display: block; font-size: 0.875rem; color: rgba(255, 255, 255, 0.8);
+    padding: 0.75rem 1rem; border: 1px dashed rgba(255, 255, 255, 0.4); border-radius: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.2); cursor: pointer; transition: border-color 0.2s, background-color 0.2s;
+}
+.form-input-file:hover {
+    border-color: var(--pmii-yellow);
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+/* Tombol Modern (adapted for this page's needs) */
+.btn-modern {
+    padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 600;
+    font-size: 0.875rem; transition: all 0.25s;
+    display: inline-flex; align-items: center; justify-content: center; cursor: pointer; border: none; text-decoration: none;
+    box-shadow: var(--shadow-sm);
+}
+.btn-modern:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.btn-modern.logout-active {
+     background-color: var(--danger); color: white !important; box-shadow: var(--shadow-sm);
+}
+.btn-modern.logout-active:hover {
+    background-color: var(--danger-hover); box-shadow: var(--shadow-md);
+}
+.btn-primary-modern { background-color: var(--pmii-yellow); color: var(--pmii-darkblue); box-shadow: var(--shadow-sm); }
+.btn-primary-modern:hover { background-color: #fbc02d; color: var(--pmii-blue); box-shadow: var(--shadow-md); }
+.btn-outline-modern { background-color: transparent; color: var(--pmii-yellow); border: 1px solid var(--pmii-yellow); box-shadow: var(--shadow-sm); }
+.btn-outline-modern:hover { background-color: rgba(253, 216, 53, 0.1); box-shadow: var(--shadow-md); }
+
+/* Riwayat Card Styles (adapted for this page's dark theme) */
+.riwayat-card {
+    background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent dark background */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-left-width: 6px; /* Slightly thicker border for emphasis */
+    padding: 1.25rem; /* Increased padding */
+    border-radius: 0.75rem; /* More rounded corners */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Stronger initial shadow */
+    transition: all 0.3s ease-in-out; /* Smooth transition for all changes */
+    transform: translateY(0); /* Ensure no initial transform */
+    position: relative; /* For potential future pseudo-elements */
+    color: white; /* Default text color inside card */
+}
+.riwayat-card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); /* More pronounced shadow on hover */
+    transform: translateY(-5px); /* Subtle lift effect */
+    background-color: rgba(0, 0, 0, 0.3); /* Slightly darker on hover */
+}
+/* Specific borders for status types */
+.riwayat-card.status-disetujui { border-left-color: var(--success); }
+.riwayat-card.status-menunggu { border-left-color: var(--warning); }
+.riwayat-card.status-revisi { border-left-color: var(--danger); }
+.riwayat-card.border-pmii-blue { border-left-color: var(--pmii-blue); } /* For general docs */
+.riwayat-card.border-pmii-darkblue { border-left-color: var(--pmii-darkblue); } /* For general docs */
+.riwayat-card.border-l-4 { border-left-width: 4px; } /* Override default 6px if needed */
+
+
+.riwayat-card p {
+    color: rgba(255, 255, 255, 0.9); /* White for main text */
+}
+.riwayat-card p.text-xs {
+    color: rgba(255, 255, 255, 0.7); /* Lighter for meta text */
+}
+/* Status Badge Styles */
+.status-badge {
+    font-size: 0.8rem; /* Slightly larger font */
+    font-weight: 700; /* Bolder font */
+    padding: 0.35rem 0.9rem; /* Increased padding */
+    border-radius: 9999px; /* Pill shape */
+    text-transform: uppercase;
+    letter-spacing: 0.025em; /* Subtle letter spacing */
+    border: 1px solid; /* Ensure border is visible */
+    display: inline-flex; /* Use flex for icon alignment */
+    align-items: center;
+    gap: 0.4rem; /* Space between icon and text */
+}
+.status-badge i {
+    font-size: 0.7rem; /* Smaller icon size relative to text */
+}
+
+.status-disetujui {
+    border-color: var(--success);
+    color: var(--success);
+    background-color: rgba(34, 197, 94, 0.15); /* Slightly more opaque */
+}
+.status-menunggu {
+    border-color: var(--warning);
+    color: var(--warning);
+    background-color: rgba(245, 158, 11, 0.15); /* Slightly more opaque */
+}
+.status-revisi {
+    border-color: var(--danger);
+    color: var(--danger);
+    background-color: rgba(239, 68, 68, 0.15); /* Slightly more opaque */
+}
+
+/* Footer Styling */
+.main-footer {
+    background-color: var(--pmii-darkblue);
+    color: #cbd5e1;
+    padding: 3rem 1rem;
+}
+.main-footer p { color: #e5e7eb; }
+.main-footer .footer-title { color: white; font-weight: 600; }
+.main-footer img { filter: brightness(0) invert(1) opacity(0.8); }
+
+/* Scroll To Top Button Styling */
+#scrollToTopBtn {
+    background-color: var(--pmii-yellow);
+    color: var(--pmii-darkblue);
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    box-shadow: var(--shadow-lg);
+    transition: background-color 0.2s, transform 0.2s;
+    position: fixed; /* Fixed position on viewport */
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 50; /* Ensure it's above other content */
+    display: none; /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+}
+#scrollToTopBtn:hover {
+    transform: scale(1.1) translateY(-2px); /* Slight lift and scale on hover */
+}
+
+/* For consistency in general pages */
+.text-pmii-blue { color: var(--pmii-yellow); } /* In dark sections, yellow is the highlight */
+.text-text-muted { color: rgba(255, 255, 255, 0.6); } /* Lighter text for subtle info */

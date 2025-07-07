@@ -1,0 +1,87 @@
+/* public/css/agenda-kegiatan.css */
+
+/* Page Header Section Styling */
+.page-header-section {
+    background: linear-gradient(135deg, var(--pmii-blue), var(--pmii-darkblue));
+    color: white;
+    padding: 4rem 1rem;
+    text-align: center;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 2rem;
+}
+.page-header-section h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+.page-header-section p {
+    font-size: 1.125rem;
+    margin-top: 0.5rem;
+    opacity: 0.9;
+}
+
+/* Activity Item Styling */
+.activity-item {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid var(--border-color); /* Added border */
+}
+.activity-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+.activity-item-header {
+    background: linear-gradient(135deg, var(--pmii-blue), var(--pmii-darkblue));
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+.activity-item-header .date-day {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1;
+}
+.activity-item-header .date-month-year {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.activity-item-content {
+    padding: 1.5rem;
+    flex-grow: 1; /* Allows content to take available space */
+    display: flex;
+    flex-direction: column;
+}
+.activity-item-content .title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--pmii-darkblue);
+    margin-bottom: 0.75rem;
+}
+.activity-item-info {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+.activity-item-info i {
+    color: var(--pmii-yellow);
+    margin-right: 0.5rem;
+}
+.activity-item-description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 1rem;
+    flex-grow: 1; /* Allows description to take available space */
+}
+.activity-item-content .btn {
+    align-self: flex-end; /* Push button to the bottom right */
+    margin-top: 1rem;
+}

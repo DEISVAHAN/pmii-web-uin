@@ -1,0 +1,213 @@
+/* public/css/digilib-lanjutan.css */
+
+/* Variabel CSS dari file yang diberikan (admin-dashboard-komisariat.html, manajemen-kader.html) */
+:root {
+    --pmii-blue: #005c97;
+    --pmii-darkblue: #004a7c;
+    --pmii-yellow: #fdd835;
+    --text-primary: #111827;
+    --text-secondary: #374151;
+    --text-muted: #6b7280;
+    --border-color: #e5e7eb;
+    --input-bg: #f9fafb;
+    --background-light: #f9fafb;
+    --background-page: #f3f4f6;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --danger-color: #ef4444;
+    --danger-hover-color: #dc2626;
+    --success-color: #22c55e;
+    --success-hover-color: #16a34a;
+    --warning-color: #f59e0b;
+    --warning-hover-color: #d97706;
+}
+html { scroll-behavior: smooth; }
+body { 
+    font-family: 'Poppins', 'Inter', sans-serif; 
+    overflow-x: hidden; 
+    background-color: var(--background-page);
+    color: var(--text-primary); 
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    transition: background-color 0.3s;
+    line-height: 1.6;
+}
+.main-content-wrapper { 
+    flex-grow: 1;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: pageFadeInUp 0.7s 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+@keyframes pageFadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+/* Header Internal (adapted from admin-dashboard-komisariat.html) */
+.internal-header {
+    background-color: white;
+    box-shadow: var(--shadow-md);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky; top: 0; z-index: 1000; 
+}
+.internal-header .logo-text { color: var(--pmii-blue); font-weight: 700; }
+.internal-header #admin-name-header { color: var(--text-secondary); font-weight: 500; }
+.internal-header #auth-info-header {
+    background-color: var(--pmii-blue); color: white;
+    padding: 0.6rem 1.2rem; border-radius: 0.5rem; 
+    transition: background-color 0.25s, transform 0.2s, box-shadow 0.25s; 
+    text-decoration: none; font-weight: 500; box-shadow: var(--shadow-sm);
+}
+.internal-header #auth-info-header:hover {
+    background-color: var(--pmii-darkblue); transform: translateY(-2px); box-shadow: var(--shadow-md);
+}
+.internal-header #auth-info-header.logout-active { background-color: #ef4444 !important; } 
+.internal-header #auth-info-header.logout-active:hover { background-color: #dc2626 !important; } 
+
+/* Page Title (adapted from admin-dashboard-komisariat.html) */
+.page-title { color: var(--pmii-darkblue); font-weight: 800; text-shadow: 1px 1px 2px rgba(0,0,0,0.05); }
+
+/* Content Section (adapted from admin-dashboard-komisariat.html) */
+.content-section { 
+    background-color: white; padding: 2rem; border-radius: 0.75rem; 
+    box-shadow: var(--shadow-md); border: 1px solid var(--border-color);
+}
+.content-section h2, .content-section h3 {
+    color: var(--pmii-darkblue); border-bottom: 2px solid var(--pmii-yellow);
+    padding-bottom: 0.5rem; display: inline-block; font-weight: 700;
+}
+
+/* Form Modern (adapted from manajemen-akun.html) */
+.input-group-modern { position: relative; margin-bottom: 1.5rem; }
+.form-input-modern, select.form-input-modern, textarea.form-input-modern, input[type="file"].form-input-modern { 
+    width: 100%; padding: 0.875rem 1rem; padding-top: 1.25rem; 
+    border: 1px solid var(--border-color); border-radius: 0.5rem; 
+    font-size: 0.875rem; color: var(--text-primary);
+    background-color: var(--input-bg);
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+select.form-input-modern { 
+     padding-top: 0.875rem; padding-bottom: 0.875rem; appearance: none; 
+     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E"); 
+     background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1.25em 1.25em; 
+}
+textarea.form-input-modern { padding-top: 1.25rem; min-height: 80px; resize: vertical; }
+.form-input-modern:focus, select.form-input-modern:focus, textarea.form-input-modern:focus, input[type="file"].form-input-modern:focus {
+    border-color: var(--pmii-blue); background-color: white;
+    box-shadow: 0 0 0 3px rgba(0, 92, 151, 0.15); outline: none;
+}
+.form-label-modern { 
+    position: absolute; left: 1rem; top: 0.875rem; 
+    color: var(--text-muted); font-size: 0.875rem; 
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none; background-color: transparent; padding: 0 0.25rem;
+}
+.form-input-modern:focus + .form-label-modern,
+.form-input-modern.has-value + .form-label-modern,
+select.form-input-modern:focus + .form-label-modern, 
+select.form-input-modern.has-value + .form-label-modern,
+textarea.form-input-modern:focus + .form-label-modern,
+textarea.form-input-modern.has-value + .form-label-modern,
+input[type="file"].form-input-modern:focus + .form-label-modern,
+input[type="file"].form-input-modern.has-value + .form-label-modern { 
+    top: 0.375rem; left: 0.75rem; font-size: 0.75rem; 
+    color: var(--pmii-blue); background-color: white; border-radius: 0.25rem;
+}
+
+/* Button Modern (adapted from manajemen-akun.html) */
+.btn-modern {
+    padding: 0.625rem 1.25rem; border-radius: 0.5rem; font-weight: 500;
+    font-size: 0.875rem; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
+    display: inline-flex; align-items: center; justify-content: center; 
+    cursor: pointer; border: none; text-decoration: none;
+    box-shadow: var(--shadow-sm);
+}
+.btn-modern:hover { transform: translateY(-2px) scale(1.02); box-shadow: var(--shadow-md); }
+.btn-modern:active { transform: translateY(0px) scale(0.98); }
+.btn-primary-modern { background-color: var(--pmii-blue); color: white; }
+.btn-primary-modern:hover { background-color: var(--pmii-darkblue); }
+.btn-danger-modern { background-color: var(--danger-color); color: white; }
+.btn-danger-modern:hover { background-color: var(--danger-hover-color); }
+.btn-outline-modern {
+    background-color: transparent; color: var(--pmii-blue); border: 1px solid var(--pmii-blue);
+}
+.btn-outline-modern:hover { background-color: rgba(0,92,151,0.05); }
+.btn-success-modern { background-color: var(--success-color); color: white; }
+.btn-success-modern:hover { background-color: var(--success-hover-color); }
+.btn-warning-modern { background-color: var(--warning-color); color: white; }
+.btn-warning-modern:hover { background-color: var(--warning-hover-color); }
+
+/* Form Message (adapted from manajemen-akun.html) */
+.form-message-success { background-color: #dcfce7; color: #166534; border: 1px solid #86efac; padding: 0.75rem 1rem; border-radius: 0.5rem; font-size: 0.875rem; }
+.form-message-error { background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 0.75rem 1rem; border-radius: 0.5rem; font-size: 0.875rem; }
+.form-message-info { background-color: #bfdbfe; color: #1e40af; border: 1px solid #93c5fd; padding: 0.75rem 1rem; border-radius: 0.5rem; font-size: 0.875rem; }
+
+/* Table Styling (adapted from manajemen-kader.html) */
+.table-modern-wrapper { overflow-x: auto; border: 1px solid var(--border-color); border-radius: 0.5rem; box-shadow: var(--shadow-sm); }
+.table-modern { min-width: 100%; border-collapse: collapse; }
+.table-modern th, .table-modern td { 
+    padding: 0.75rem 1rem; text-align: left; 
+    border-bottom: 1px solid var(--border-color); font-size: 0.875rem; 
+}
+.table-modern thead th { 
+    background-color: var(--background-light); color: var(--text-secondary); 
+    font-weight: 600; white-space: nowrap;
+}
+.table-modern tbody tr:hover { background-color: #eff6ff; /* blue-50 */ }
+.table-modern .action-icon {
+    color: var(--text-muted); margin-right: 0.5rem; cursor: pointer;
+    transition: color 0.2s, transform 0.2s;
+}
+.table-modern .action-icon:hover { transform: scale(1.15); }
+.table-modern .action-icon.fa-edit:hover { color: var(--pmii-blue); }
+.table-modern .action-icon.fa-trash-alt:hover { color: var(--danger-color); }
+.table-modern .status-badge { /* Re-use from existing files if possible */
+    padding: 0.25rem 0.625rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; text-transform: capitalize;
+    border: 1px solid; display: inline-flex; align-items: center; gap: 0.4rem;
+}
+.status-badge.pending { border-color: var(--warning-color); color: var(--warning-color); background-color: rgba(245, 158, 11, 0.15); }
+.status-badge.approved { border-color: var(--success-color); color: var(--success-color); background-color: rgba(34, 197, 94, 0.15); }
+.status-badge.rejected { border-color: var(--danger-color); color: var(--danger-color); background-color: rgba(239, 68, 68, 0.15); }
+
+/* Modal Styling (adapted from manajemen-akun.html) */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0,0,0,0.6);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s;
+    z-index: 2000; padding: 1rem;
+}
+.modal-overlay.active { opacity: 1; visibility: visible; }
+.modal-content {
+    background-color: white; padding: 2rem; border-radius: 0.75rem;
+    box-shadow: var(--shadow-lg); width: 100%; max-width: 600px; /* Adjust max-width for detail modal */
+    transform: scale(0.95); opacity: 0;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s;
+    max-height: 90vh; /* Allow scrolling for long content */
+    overflow-y: auto;
+}
+.modal-overlay.active .modal-content { transform: scale(1); opacity: 1; }
+.modal-header { border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;}
+.modal-title { font-size: 1.25rem; font-weight: 600; color: var(--pmii-darkblue); }
+.modal-footer { border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 0.75rem; }
+.modal-body p { margin-bottom: 0.5rem; } /* Spacing for paragraphs in modal */
+.modal-body strong { color: var(--text-primary); }
+
+/* Footer (adapted from admin-dashboard-komisariat.html) */
+.internal-footer {
+    background-color: var(--pmii-darkblue); color: #cbd5e1; 
+    padding: 2.5rem 1rem; 
+}
+.internal-footer p { color: #e5e7eb; }
+.internal-footer .footer-title { color: white; font-weight: 600; }
+.internal-footer img { filter: brightness(0) invert(1) opacity(0.8); }
+
+/* Scroll to Top Button (adapted from admin-dashboard-komisariat.html) */
+#scrollToTopBtnMakalah {
+    background-color: var(--pmii-yellow); color: var(--pmii-darkblue);
+    width: 2.75rem; height: 2.75rem; border-radius: 50%; 
+    box-shadow: var(--shadow-lg); transition: background-color 0.2s, transform 0.2s;
+}
+#scrollToTopBtnMakalah:hover { background-color: #fbc02d; transform: scale(1.1) translateY(-2px); }
+
+/* Custom Alert/Message Box (adapted from manajemen-kader.html) */
+#customMessageBox { transition: all 0.3s ease-in-out; }

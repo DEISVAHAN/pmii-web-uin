@@ -1,0 +1,110 @@
+/* public/css/edit-profil-rayon.css */
+
+/* Gaya yang SANGAT SPESIFIK untuk edit-profil-rayon.php */
+
+/* Judul halaman */
+.page-title {
+    color: var(--pmii-darkblue);
+    font-weight: 800;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
+/* Bagian konten/kartu umum */
+.content-section {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+}
+.content-section h2, .content-section h3 {
+    color: var(--pmii-darkblue);
+    border-bottom: 2px solid var(--pmii-yellow);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+    font-weight: 700;
+}
+
+/* Gaya untuk unggah gambar profil rayon dan ketua */
+.image-upload-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem; /* Reduced margin to group elements */
+}
+.image-preview { /* For both logo and chairman photo previews */
+    width: 160px; /* Adjust size */
+    height: 160px;
+    object-fit: cover;
+    border-radius: 50%; /* Circular */
+    background-color: #e0e0e0;
+    border: 4px solid var(--pmii-blue); /* Blue border */
+    box-shadow: var(--shadow-md);
+    transition: all 0.2s ease;
+}
+.image-preview.chairman-photo { /* Specific styling for chairman photo */
+    width: 120px;
+    height: 120px;
+    border-color: var(--pmii-yellow); /* Yellow border for chairman photo */
+}
+.image-preview:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-lg);
+}
+.upload-label-btn {
+    background-color: var(--pmii-yellow);
+    color: var(--pmii-darkblue);
+    padding: 0.6rem 1.2rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+}
+.upload-label-btn:hover {
+    background-color: #fbc02d;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+.upload-label-btn input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Gaya input form (jika berbeda dari global) */
+.form-input {
+    /* ... gaya dasar dari style.css ... */
+    color: var(--text-primary); /* Ensure text is dark on light background */
+}
+.form-label {
+    /* ... gaya dasar dari style.css ... */
+    color: var(--text-secondary); /* Ensure labels are readable */
+}
+
+/* Gaya untuk tombol scroll ke atas */
+#scrollToTopBtn { /* Ini harus sesuai dengan ID di HTML */
+    background-color: var(--pmii-yellow);
+    color: var(--pmii-darkblue);
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    box-shadow: var(--shadow-lg);
+    transition: background-color 0.2s, transform 0.2s;
+    position: fixed; /* Fixed position on viewport */
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 50; /* Ensure it's above other content */
+    display: none; /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+}
+#scrollToTopBtn:hover {
+    transform: scale(1.1) translateY(-2px); /* Slight lift and scale on hover */
+}

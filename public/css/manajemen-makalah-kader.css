@@ -1,0 +1,205 @@
+/* public/css/manajemen-makalah-kader.css */
+
+/* Judul Halaman */
+.page-title {
+    color: var(--pmii-darkblue); /* Warna judul default untuk latar belakang terang */
+    font-weight: 800;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
+/* Header Internal */
+.internal-header {
+    background-color: white;
+    box-shadow: var(--shadow-md);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky; top: 0; z-index: 1000; 
+}
+.internal-header .logo-text { color: var(--pmii-blue); font-weight: 700; }
+.internal-header #admin-name-header, .internal-header #user-info { color: var(--text-secondary); font-weight: 500; } /* Include #user-info */
+.internal-header #auth-info-header {
+    background-color: var(--pmii-blue); color: white;
+    padding: 0.6rem 1.2rem; border-radius: 0.5rem; 
+    transition: background-color 0.25s, transform 0.2s, box-shadow 0.25s; 
+    text-decoration: none; font-weight: 500; box-shadow: var(--shadow-sm);
+}
+.internal-header #auth-info-header:hover {
+    background-color: var(--pmii-darkblue); transform: translateY(-2px); box-shadow: var(--shadow-md);
+}
+.internal-header #auth-info-header.logout-active { background-color: #ef4444 !important; } 
+.internal-header #auth-info-header.logout-active:hover { background-color: #dc2626 !important; } 
+
+/* Bagian Konten (Card) */
+.content-section { 
+    background-color: white; padding: 2rem; border-radius: 0.75rem; 
+    box-shadow: var(--shadow-md); border: 1px solid var(--border-color);
+}
+.content-section h2, .content-section h3 {
+    color: var(--pmii-darkblue); border-bottom: 2px solid var(--pmii-yellow);
+    padding-bottom: 0.5rem; display: inline-block; font-weight: 700;
+}
+
+/* Form Input Modern (untuk form unggah/edit) */
+.input-group-modern { position: relative; margin-bottom: 1.5rem; }
+.form-input-modern, select.form-input-modern, textarea.form-input-modern, input[type="file"].form-input-modern { 
+    width: 100%; padding: 0.875rem 1rem; padding-top: 1.25rem; 
+    border: 1px solid var(--border-color); border-radius: 0.5rem; 
+    font-size: 0.875rem; color: var(--text-primary);
+    background-color: var(--input-bg);
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+.form-input-modern::placeholder {
+    color: var(--text-muted);
+}
+select.form-input-modern { 
+     padding-top: 0.875rem; padding-bottom: 0.875rem; appearance: none; 
+     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E"); 
+     background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1.25em 1.25em; 
+}
+textarea.form-input-modern { padding-top: 1.25rem; min-height: 80px; resize: vertical; }
+input[type="file"].form-input-modern { /* Specific style for file input in modern form group */
+    padding-top: 0.875rem; /* Adjust padding for file input */
+    padding-bottom: 0.875rem;
+}
+.form-input-modern:focus + .form-label-modern,
+.form-input-modern.has-value + .form-label-modern,
+select.form-input-modern:focus + .form-label-modern, 
+select.form-input-modern.has-value + .form-label-modern,
+textarea.form-input-modern:focus + .form-label-modern,
+textarea.form-input-modern.has-value + .form-label-modern,
+input[type="file"].form-input-modern:focus + .form-label-modern,
+input[type="file"].form-input-modern.has-value + .form-label-modern { 
+    top: 0.375rem; left: 0.75rem; font-size: 0.75rem; 
+    color: var(--pmii-blue); background-color: white; border-radius: 0.25rem;
+}
+
+/* Button Modern */
+.btn-modern {
+    padding: 0.625rem 1.25rem; border-radius: 0.5rem; font-weight: 500;
+    font-size: 0.875rem; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
+    display: inline-flex; align-items: center; justify-content: center; 
+    cursor: pointer; border: none; text-decoration: none;
+    box-shadow: var(--shadow-sm);
+}
+.btn-modern:hover { transform: translateY(-2px) scale(1.02); box-shadow: var(--shadow-md); }
+.btn-modern:active { transform: translateY(0px) scale(0.98); }
+.btn-primary-modern { background-color: var(--pmii-blue); color: white; }
+.btn-primary-modern:hover { background-color: var(--pmii-darkblue); }
+.btn-danger-modern { background-color: var(--danger-color); color: white; }
+.btn-danger-modern:hover { background-color: var(--danger-hover-color); }
+.btn-outline-modern {
+    background-color: transparent; color: var(--pmii-blue); border: 1px solid var(--pmii-blue);
+}
+.btn-outline-modern:hover { background-color: rgba(0,92,151,0.05); }
+.btn-success-modern { background-color: var(--success-color); color: white; }
+.btn-success-modern:hover { background-color: var(--success-hover-color); }
+.btn-warning-modern { background-color: var(--warning-color); color: white; }
+.btn-warning-modern:hover { background-color: var(--warning-hover-color); }
+
+
+/* Form Message */
+.form-message {
+    padding: 0.75rem 1rem; border-radius: 0.5rem; font-size: 0.875rem;
+    text-align: center;
+}
+.form-message-success { background-color: #dcfce7; color: #166534; border: 1px solid #86efac; }
+.form-message-error { background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+
+/* Table Styling */
+.table-modern-wrapper {
+    overflow-x: auto;
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-sm);
+}
+.table-modern { min-width: 100%; border-collapse: collapse; }
+.table-modern th, .table-modern td {
+    padding: 0.75rem 1rem; text-align: left;
+    border-bottom: 1px solid var(--border-color); font-size: 0.875rem;
+    white-space: nowrap;
+}
+.table-modern thead th {
+    background-color: var(--background-light); color: var(--pmii-darkblue);
+    font-weight: 600; position: sticky; top: 0;
+    z-index: 10;
+}
+.table-modern tbody tr:nth-child(even) { background-color: #fcfcfc; }
+.table-modern tbody tr:hover { background-color: #e9ecef; }
+.table-modern .action-icon {
+    color: var(--pmii-blue); margin-right: 0.5rem; cursor: pointer;
+    transition: color 0.2s, transform 0.2s;
+}
+.table-modern .action-icon:hover { transform: scale(1.15); color: var(--pmii-darkblue); }
+.table-modern .action-icon.fa-trash-alt:hover { color: var(--danger-color); }
+
+/* Status Badge for Table */
+.status-badge {
+    padding: 0.25rem 0.625rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; text-transform: capitalize;
+    border: 1px solid; display: inline-flex; align-items: center; gap: 0.4rem;
+}
+.status-badge i { font-size: 0.6em; } /* Smaller icon */
+.status-badge.pending { border-color: var(--warning-color); color: var(--warning-color); background-color: rgba(245, 158, 11, 0.1); }
+.status-badge.approved { border-color: var(--success-color); color: var(--success-color); background-color: rgba(34, 197, 94, 0.1); }
+.status-badge.rejected { border-color: var(--danger-color); color: var(--danger-color); background-color: rgba(239, 68, 68, 0.1); }
+.status-badge.revision { border-color: var(--pmii-blue); color: var(--pmii-blue); background-color: rgba(0, 92, 151, 0.1); } /* Use blue for revision for contrast */
+
+
+/* Modal Styling (for details) */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0,0,0,0.6);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s;
+    z-index: 2000; padding: 1rem;
+}
+.modal-overlay.active { opacity: 1; visibility: visible; }
+.modal-content {
+    background-color: white; padding: 2rem; border-radius: 0.75rem;
+    box-shadow: var(--shadow-lg); width: 100%; max-width: 600px; /* Wider modal for details */
+    transform: scale(0.95); opacity: 0;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s;
+    max-height: 90vh; /* Limit modal height */
+    overflow-y: auto; /* Enable scroll if content is too long */
+}
+.modal-overlay.active .modal-content { transform: scale(1); opacity: 1; }
+.modal-header { border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;}
+.modal-title { font-size: 1.25rem; font-weight: 600; color: var(--pmii-darkblue); }
+.modal-footer { border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 0.75rem; }
+.modal-body p { margin-bottom: 0.5rem; } /* Spacing for paragraphs in modal */
+.modal-body strong { color: var(--text-primary); }
+
+
+/* Footer Styling */
+.main-footer {
+    background-color: var(--pmii-darkblue);
+    color: #cbd5e1;
+    padding: 3rem 1rem;
+    margin-top: auto;
+}
+.main-footer p { color: #e5e7eb; }
+.main-footer .footer-title { color: white; font-weight: 600; }
+.main-footer img { filter: brightness(0) invert(1) opacity(0.8); }
+
+/* Scroll To Top Button Styling */
+#scrollToTopBtnMakalah {
+    background-color: var(--pmii-yellow);
+    color: var(--pmii-darkblue);
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    box-shadow: var(--shadow-lg);
+    transition: background-color 0.2s, transform 0.2s;
+    position: fixed; /* Fixed position on viewport */
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 50; /* Ensure it's above other content */
+    display: none; /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+}
+#scrollToTopBtnMakalah:hover {
+    transform: scale(1.1) translateY(-2px); /* Slight lift and scale on hover */
+}
+
+/* Custom Alert/Message Box */
+#customMessageBox { transition: all 0.3s ease-in-out; }

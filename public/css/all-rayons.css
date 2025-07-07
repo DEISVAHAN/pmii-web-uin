@@ -1,0 +1,181 @@
+/* public/css/all-rayons.css */
+
+/* Page Header Background with animated gradient */
+.page-header-bg {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(-45deg, var(--pmii-blue), var(--pmii-darkblue), var(--pmii-yellow), var(--pmii-blue));
+    background-size: 400% 400%;
+    animation: gradientAnimation 20s ease infinite; /* Slower animation */
+}
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Page Title & Tagline Enhancements */
+.page-header-bg .page-title, .page-header-bg .page-tagline {
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.6); /* Stronger text shadow */
+    position: relative;
+    z-index: 10; /* Ensure text is above parallax elements */
+}
+/* Parallax effect container */
+.parallax-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allow clicks to pass through */
+    overflow: hidden;
+}
+.parallax-item {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.1); /* Transparent white shapes */
+    border-radius: 50%; /* Circular shapes */
+    opacity: 0; /* Initially hidden */
+    animation: floatAndFade 20s infinite ease-in-out; /* Floating and fading animation */
+    transform-origin: center center;
+}
+.parallax-item:nth-child(1) { width: 50px; height: 50px; top: 10%; left: 15%; animation-delay: 0s; transform: rotate(0deg); }
+.parallax-item:nth-child(2) { width: 80px; height: 80px; top: 70%; left: 80%; animation-delay: 5s; background-color: rgba(253, 216, 53, 0.15); transform: rotate(0deg); } /* Yellow tint */
+.parallax-item:nth-child(3) { width: 30px; height: 30px; top: 40%; left: 50%; animation-delay: 10s; transform: rotate(0deg); }
+.parallax-item:nth-child(4) { width: 60px; height: 60px; top: 25%; left: 70%; animation-delay: 15s; background-color: rgba(0, 92, 151, 0.1); transform: rotate(0deg); } /* Blue tint */
+.parallax-item:nth-child(5) { width: 40px; height: 40px; top: 85%; left: 30%; animation-delay: 20s; transform: rotate(0deg); }
+/* Additional parallax items for richer effect */
+.parallax-item:nth-child(6) { width: 70px; height: 70px; top: 55%; left: 10%; animation-delay: 2s; background-color: rgba(0, 74, 124, 0.1); transform: rotate(0deg); } /* Darker blue tint */
+.parallax-item:nth-child(7) { width: 45px; height: 45px; top: 20%; left: 90%; animation-delay: 7s; transform: rotate(0deg); }
+.parallax-item:nth-child(8) { width: 90px; height: 90px; top: 80%; left: 5%; animation-delay: 12s; background-color: rgba(253, 216, 53, 0.1); transform: rotate(0deg); }
+.parallax-item:nth-child(9) { width: 55px; height: 55px; top: 5%; left: 60%; animation-delay: 17s; transform: rotate(0deg); }
+
+
+@keyframes floatAndFade {
+    0% { transform: translateY(0) translateX(0) scale(0.5) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.8; }
+    50% { transform: translateY(-50px) translateX(20px) scale(1.2) rotate(45deg); opacity: 0.6; } /* Add rotation */
+    90% { opacity: 0; }
+    100% { transform: translateY(-100px) translateX(40px) scale(0.5) rotate(90deg); opacity: 0; } /* Add rotation */
+}
+
+
+/* Animation for content entry */
+.animated-section {
+    opacity: 0;
+    transform: translateY(30px); /* Slightly further initial shift */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Slower, smoother transition */
+}
+.animated-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* Staggering delays for elements within an animated section */
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.15s; } /* Adjusted delay */
+.stagger-3 { transition-delay: 0.2s; }
+.stagger-4 { transition-delay: 0.25s; }
+.stagger-5 { transition-delay: 0.3s; }
+.stagger-6 { transition-delay: 0.35s; }
+.stagger-7 { transition-delay: 0.4s; }
+.stagger-8 { transition-delay: 0.45s; }
+.stagger-9 { transition-delay: 0.5s; }
+.stagger-10 { transition-delay: 0.55s; }
+.stagger-11 { transition-delay: 0.6s; }
+.stagger-12 { transition-delay: 0.65s; }
+
+/* Styling for info blocks within cards - added subtle border */
+.rayon-card .info-block {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; /* Space between icon and text */
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem; /* Add padding below text */
+    border-bottom: 1px solid rgba(0, 92, 151, 0.08); /* Subtle border */
+    color: var(--text-secondary);
+    font-size: 0.95rem; /* Slightly larger text for info */
+}
+.rayon-card .info-block:last-of-type {
+    border-bottom: none; /* No border for the last info block */
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+.rayon-card .info-block i {
+    color: var(--pmii-blue); /* Consistent blue for icons */
+    font-size: 1.1rem; /* Slightly larger icons */
+}
+
+/* Further enhancements for rayon cards */
+.rayon-card {
+    background-color: white;
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: 2rem; /* More top padding for logo */
+}
+
+.rayon-card:hover {
+    transform: translateY(-8px) scale(1.02); /* Lift and slight enlarge */
+    box-shadow: var(--shadow-xl); /* More prominent shadow on hover */
+}
+
+.rayon-card img {
+    width: 80px; /* Adjust logo size */
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1.5rem; /* Space below logo */
+    border: 3px solid var(--pmii-yellow); /* Yellow border around logo */
+    box-shadow: var(--shadow-md); /* Shadow for logo */
+    transition: transform 0.3s ease-out;
+}
+
+.rayon-card:hover img {
+    transform: rotate(5deg) scale(1.05); /* Slight rotation and scale on logo hover */
+}
+
+.rayon-card h3 {
+    min-height: 3rem; /* Ensure consistent height for titles */
+}
+
+.rayon-card .social-links {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.75rem; /* Space between social icons */
+}
+
+.rayon-card .social-links a {
+    color: var(--pmii-blue);
+    font-size: 1.25rem; /* Larger social icons */
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.rayon-card .social-links a:hover {
+    color: var(--pmii-yellow);
+    transform: scale(1.2);
+}
+
+.rayon-card .detail-link {
+    display: flex;
+    align-items: center;
+    margin-top: 1.5rem;
+    color: var(--pmii-blue);
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.rayon-card .detail-link i {
+    margin-left: 0.5rem;
+    transition: transform 0.2s ease;
+}
+
+.rayon-card:hover .detail-link {
+    color: var(--pmii-yellow);
+}
+
+.rayon-card:hover .detail-link i {
+    transform: translateX(5px); /* Move arrow on hover */
+}

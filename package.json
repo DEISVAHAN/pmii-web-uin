@@ -1,0 +1,24 @@
+{
+    "name": "pmii-web-uin-frontend",
+    "version": "1.0.0",
+    "description": "Frontend assets for PMII UIN Sunan Gunung Djati internal system.",
+    "main": "public/js/main.js",
+    "scripts": {
+        "dev": "echo 'No frontend build process configured yet. Run your PHP server.'",
+        "prod": "echo 'No frontend build process configured yet. Run your PHP server.'",
+        "watch": "echo 'No frontend build process configured yet. Run your PHP server.'"
+    },
+    "keywords": [
+        "pmii",
+        "web",
+        "uin",
+        "frontend",
+        "dashboard"
+    ],
+    "author": "Your Name/Organization",
+    "license": "MIT",
+    "devDependencies": {
+        "tailwindcss": "^3.0.0"
+    },
+    "dependencies": {}
+}

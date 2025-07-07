@@ -1,0 +1,80 @@
+/* public/css/digilib-prosiding-seminar.css */
+
+:root {
+    --pmii-blue: #005c97;
+    --pmii-darkblue: #004a7c;
+    --pmii-yellow: #fdd835;
+    --text-primary: #111827;
+    --text-secondary: #374151;
+    --text-muted: #6b7280;
+    --border-color: #e5e7eb;
+    --background-page: #f3f4f6;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+body {
+    font-family: 'Poppins', 'Inter', sans-serif;
+    background-color: var(--background-page);
+    color: var(--text-primary);
+}
+.internal-header { background-color: white; box-shadow: var(--shadow-md); border-bottom: 1px solid var(--border-color); }
+.logo-text { color: var(--pmii-blue); }
+#auth-info-header { background-color: var(--pmii-blue); color: white; padding: 0.6rem 1.2rem; border-radius: 0.5rem; transition: all 0.25s; font-weight: 500; }
+#auth-info-header:hover { background-color: var(--pmii-darkblue); transform: translateY(-2px); }
+#auth-info-header.logout-active { background-color: #ef4444 !important; }
+#auth-info-header.logout-active:hover { background-color: #dc2626 !important; }
+.page-title { color: var(--pmii-darkblue); font-weight: 800; }
+.btn { padding: 0.6rem 1.25rem; border-radius: 0.5rem; font-weight: 600; font-size: 0.9rem; transition: all 0.25s; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; box-shadow: var(--shadow-sm); }
+.btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.btn-primary { background-color: var(--pmii-blue); color: white; }
+.btn-primary:hover:not(:disabled) { background-color: var(--pmii-darkblue); }
+.btn-success { background-color: #22c55e; color: white; }
+.btn-success:hover { background-color: #16a34a; }
+
+/* Proceeding Item Styling */
+.proceeding-item {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-md);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: center;
+    padding: 1.25rem;
+}
+.proceeding-item:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: var(--shadow-lg);
+}
+.proceeding-item .icon-wrapper {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    background-color: var(--pmii-yellow);
+    color: var(--pmii-darkblue);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+.proceeding-item .item-content {
+    flex-grow: 1;
+}
+.proceeding-item .item-title {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+.proceeding-item .item-year {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+.proceeding-item .admin-actions {
+    display: none; /* Hidden by default */
+}
+
+.modal-overlay { transition: opacity 0.3s ease; }
+.modal-content { transition: transform 0.3s ease; }
+.admin-controls { display: none; }
+#notification { transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out; }

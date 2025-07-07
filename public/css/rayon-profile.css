@@ -1,0 +1,297 @@
+/* public/css/rayon-profile.css */
+
+/* Variabel CSS untuk skema warna PMII dan bayangan */
+:root {
+    --pmii-blue: #005c97;
+    --pmii-darkblue: #004a7c;
+    --pmii-yellow: #fdd835;
+    --pmii-purple: #6A0DAD; /* Warna ungu baru */
+    --text-primary: #111827;
+    --text-secondary: #374151;
+    --text-muted: #6b7280;
+    --border-color: #e5e7eb;
+    --background-page: #f3f4f6;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+body {
+    font-family: 'Poppins', 'Inter', sans-serif;
+    background-color: var(--background-page);
+    color: var(--text-primary);
+    line-height: 1.6;
+    display: flex; /* Untuk membuat footer lengket di bagian bawah */
+    flex-direction: column; /* Untuk membuat footer lengket di bagian bawah */
+    min-height: 100vh; /* Memastikan body minimal setinggi viewport */
+    overflow-x: hidden; /* Mencegah overflow horizontal */
+}
+.main-content-wrapper {
+    flex-grow: 1; /* Mendorong footer ke bagian bawah */
+}
+/* Header internal dengan bayangan dan sticky */
+.internal-header { 
+    background-color: white; 
+    box-shadow: var(--shadow-md); 
+    border-bottom: 1px solid var(--border-color); 
+    position: sticky; 
+    top: 0; 
+    z-index: 40; 
+    transition: box-shadow 0.3s ease-in-out;
+}
+.logo-text { color: var(--pmii-blue); }
+.page-title { 
+    color: white; /* Diubah menjadi putih */
+    font-weight: 800; 
+}
+
+/* Gaya tombol umum yang ditingkatkan */
+.btn { 
+    padding: 0.85rem 1.75rem; /* Padding sedikit lebih besar */
+    border-radius: 0.75rem; /* Sudut sedikit lebih membulat */
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; text-decoration: none;
+    box-shadow: var(--shadow-md);
+    position: relative; /* Untuk efek glow */
+    overflow: hidden;
+    z-index: 1;
+}
+.btn::before { /* Efek glow pada tombol */
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.15); /* Cahaya putih */
+    border-radius: 50%;
+    transition: width 0.4s ease-out, height 0.4s ease-out, top 0.4s ease-out, left 0.4s ease-out;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+.btn:hover::before {
+    width: 200%;
+    height: 200%;
+    top: 0;
+    left: 0;
+}
+.btn:hover { 
+     box-shadow: var(--shadow-xl); /* Bayangan lebih besar */
+     transform: translateY(-4px) scale(1.05); /* Mengangkat lebih tinggi dan membesar lebih banyak */
+}
+.btn:active {
+    transform: translateY(0px) scale(0.95); /* Sedikit lebih kecil saat aktif */
+    box-shadow: var(--shadow-sm);
+}
+.btn-primary { 
+    background-color: var(--pmii-blue); 
+    color: white; 
+}
+.btn-primary:hover:not(:disabled) { 
+    background-color: var(--pmii-darkblue); 
+}
+
+/* Gaya untuk bagian konten, meniru form-section */
+.content-section-card {
+    background-color: white;
+    border-radius: 1.25rem; /* Sudut lebih membulat */
+    padding: 2.5rem; /* Padding lebih besar */
+    box-shadow: var(--shadow-lg); /* Bayangan lebih kuat */
+    /* Removed animated-section from here, now applies to parent div.rayon-profile-content directly */
+}
+.profile-img-display {
+    width: 160px; /* Sedikit lebih besar */
+    height: 160px; /* Sedikit lebih besar */
+    object-fit: cover; /* Changed to cover for image cropping */
+    border-radius: 50%;
+    border: 6px solid var(--pmii-yellow); /* Border lebih tebal */
+    margin-bottom: 1.75rem; /* Margin sedikit lebih besar */
+    box-shadow: var(--shadow-xl); /* Bayangan lebih kuat */
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.4s ease;
+}
+.profile-img-display:hover {
+    transform: scale(1.05); /* Membesar saat hover */
+    border-color: var(--pmii-darkblue);
+}
+
+/* New: Styling for info sections within the main card */
+.info-section-card {
+    background-color: var(--background-light); /* Lighter background for sections */
+    border-radius: 1rem;
+    padding: 1.75rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    margin-bottom: 2rem; /* Spacing between info sections */
+}
+.info-section-card h3 {
+    position: relative;
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.5rem;
+    color: var(--pmii-darkblue);
+}
+.info-section-card h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    height: 3px;
+    background-color: var(--pmii-yellow);
+    border-radius: 2px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: flex-start; /* Mengatur item agar rata atas */
+    margin-bottom: 1rem; /* Margin lebih besar */
+    color: var(--text-secondary);
+}
+.detail-item i {
+    color: var(--pmii-blue);
+    margin-right: 1rem; /* Margin lebih besar */
+    font-size: 1.25rem; /* Ukuran ikon lebih besar */
+    width: 24px; /* Lebar tetap untuk ikon */
+    text-align: center;
+    flex-shrink: 0; /* Mencegah ikon menyusut */
+    padding-top: 2px; /* Penyelarasan ikon */
+}
+.detail-item strong {
+    color: var(--text-primary);
+    font-weight: 600; /* Sedikit lebih tebal */
+}
+.detail-text {
+    font-size: 1.05rem; /* Ukuran teks sedikit lebih besar */
+    line-height: 1.6;
+}
+.detail-social-links a {
+    color: var(--pmii-blue);
+    font-size: 1.8rem; /* Ukuran ikon sosial lebih besar */
+    margin-right: 1.25rem; /* Margin lebih besar */
+    transition: color 0.25s ease, transform 0.25s ease;
+}
+.detail-social-links a:hover {
+    color: var(--pmii-yellow);
+    transform: scale(1.2); /* Efek membesar yang lebih kuat */
+}
+
+/* Footer Styling */
+.internal-footer {
+    background-color: var(--pmii-darkblue);
+    color: #cbd5e1;
+    padding: 3rem 1rem; /* Padding lebih besar */
+    margin-top: auto;
+}
+.internal-footer p {
+    color: #e5e7eb;
+}
+.internal-footer .footer-title {
+    color: white;
+    font-weight: 600;
+}
+.internal-footer img {
+    filter: brightness(0) invert(1) opacity(0.8);
+}
+
+/* Scroll To Top Button */
+#scrollToTopBtn {
+    background-color: var(--pmii-yellow);
+    color: var(--pmii-darkblue);
+    width: 3rem; /* Sedikit lebih besar */
+    height: 3rem; /* Sedikit lebih besar */
+    border-radius: 50%;
+    box-shadow: var(--shadow-xl); /* Bayangan lebih kuat */
+    transition: background-color 0.25s ease, transform 0.3s ease-out;
+    position: fixed;
+    bottom: 2rem; /* Posisi lebih masuk ke dalam */
+    right: 2rem; /* Posisi lebih masuk ke dalam */
+    z-index: 50;
+    display: none; /* Tersembunyi secara default */
+    align-items: center;
+    justify-content: center;
+}
+#scrollToTopBtn:hover {
+    background-color: #fbc02d;
+    transform: scale(1.15) translateY(-3px); /* Efek hover yang lebih kuat */
+}
+
+/* Latar belakang header halaman dengan animasi gradien dan parallax */
+.page-header-bg {
+    position: relative;
+    overflow: hidden;
+    /* Gradasi biru ke ungu */
+    background: linear-gradient(135deg, var(--pmii-blue) 0%, var(--pmii-purple) 100%); 
+    background-size: 400% 400%;
+    animation: gradientAnimation 20s ease infinite; /* Animasi lebih lambat */
+    min-height: 250px; /* Tinggi minimum untuk header */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Peningkatan Judul Halaman & Tagline */
+.page-header-bg .page-title, .page-header-bg .page-tagline {
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.6); /* Bayangan teks lebih kuat */
+    position: relative;
+    z-index: 10; /* Pastikan teks di atas elemen parallax */
+}
+/* Efek parallax container */
+.parallax-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Biarkan klik melewati */
+    overflow: hidden;
+}
+.parallax-item {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.1); /* Bentuk putih transparan */
+    border-radius: 50%; /* Bentuk lingkaran */
+    opacity: 0; /* Awalnya tersembunyi */
+    animation: floatAndFade 20s infinite ease-in-out; /* Animasi mengambang dan memudar */
+    transform-origin: center center;
+}
+.parallax-item:nth-child(1) { width: 50px; height: 50px; top: 10%; left: 15%; animation-delay: 0s; }
+.parallax-item:nth-child(2) { width: 80px; height: 80px; top: 70%; left: 80%; animation-delay: 5s; background-color: rgba(253, 216, 53, 0.15); } /* Yellow tint */
+.parallax-item:nth-child(3) { width: 30px; height: 30px; top: 40%; left: 50%; animation-delay: 10s; }
+.parallax-item:nth-child(4) { width: 60px; height: 60px; top: 25%; left: 70%; animation-delay: 15s; background-color: rgba(0, 92, 151, 0.1); } /* Blue tint */
+.parallax-item:nth-child(5) { width: 40px; height: 40px; top: 85%; left: 30%; animation-delay: 20s; }
+
+
+@keyframes floatAndFade {
+    0% { transform: translateY(0) translateX(0) scale(0.5); opacity: 0; }
+    10% { opacity: 0.8; }
+    50% { transform: translateY(-50px) translateX(20px) scale(1.2); opacity: 0.6; }
+    90% { opacity: 0; }
+    100% { transform: translateY(-100px) translateX(40px) scale(0.5); opacity: 0; }
+}
+
+/* Animasi masuk konten */
+.animated-section {
+    opacity: 0;
+    transform: translateY(30px); /* Sedikit lebih jauh pergeseran awal */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Transisi lebih lambat dan halus */
+}
+.animated-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* Delay untuk animasi stagger */
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.15s; } /* Penyesuaian delay */
+.stagger-3 { transition-delay: 0.2s; }
+.stagger-4 { transition-delay: 0.25s; }
+.stagger-5 { transition-delay: 0.3s; }
+.stagger-6 { transition-delay: 0.35s; }
+.stagger-7 { transition-delay: 0.4s; }
+.stagger-8 { transition-delay: 0.45s; }
+.stagger-9 { transition-delay: 0.5s; }

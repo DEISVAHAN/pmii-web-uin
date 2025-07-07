@@ -1,0 +1,196 @@
+/* public/css/arsiparis.css */
+
+/* Gaya yang SANGAT SPESIFIK untuk arsiparis.php */
+
+/* Judul halaman */
+.page-title {
+    color: var(--pmii-darkblue); /* Warna khusus untuk judul di sini */
+    font-weight: 800;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
+/* Bagian konten/kartu umum */
+.content-section {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+}
+.content-section h2, .content-section h3 {
+    color: var(--pmii-darkblue);
+    border-bottom: 2px solid var(--pmii-yellow);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+    font-weight: 700;
+}
+
+/* Gaya untuk kartu arsip */
+.archive-card {
+    background-color: #fcfcfc; /* Very light background for contrast */
+    border: 1px solid var(--border-color);
+    border-left: 6px solid var(--pmii-blue); /* Left border for emphasis */
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.archive-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-left-color: var(--pmii-darkblue);
+}
+
+.archive-card h4 {
+    font-weight: 700;
+    color: var(--pmii-darkblue);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.archive-card p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.archive-card .detail-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.archive-card .detail-row i {
+    color: var(--pmii-blue);
+}
+
+.archive-card .actions {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+}
+
+.archive-card .actions .btn-archive-action {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-sm);
+    flex-grow: 1; /* Allow buttons to grow */
+}
+
+.archive-card .actions .btn-view {
+    background-color: var(--pmii-blue);
+    color: white;
+}
+.archive-card .actions .btn-view:hover {
+    background-color: var(--pmii-darkblue);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.archive-card .actions .btn-download {
+    background-color: var(--pmii-yellow);
+    color: var(--text-primary);
+}
+.archive-card .actions .btn-download:hover {
+    background-color: #fbc02d;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Responsive adjustments for archive cards */
+@media (max-width: 640px) {
+    .archive-card .actions {
+        flex-direction: column;
+    }
+    .archive-card .actions .btn-archive-action {
+        width: 100%;
+    }
+}
+
+/* Gaya untuk unggahan file */
+.file-upload-input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.65rem;
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.file-upload-input:hover {
+    border-color: var(--pmii-blue);
+}
+.file-upload-input:focus {
+    border-color: var(--pmii-blue);
+    box-shadow: 0 0 0 4px rgba(0, 92, 151, 0.2);
+    outline: none;
+}
+.file-preview-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 0.5rem;
+}
+.file-preview-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--background-light);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+}
+.file-preview-item i {
+    margin-right: 0.5rem;
+    color: var(--pmii-blue);
+}
+.file-preview-item .file-name {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.file-preview-item .remove-file-btn {
+    background: none;
+    border: none;
+    color: var(--danger-color);
+    cursor: pointer;
+    font-size: 1rem;
+    margin-left: 1rem;
+}
+
+/* Gaya untuk tombol scroll ke atas */
+#scrollToTopBtn { /* Ini harus sesuai dengan ID di HTML */
+    background-color: var(--pmii-yellow);
+    color: var(--pmii-darkblue);
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    box-shadow: var(--shadow-lg);
+    transition: background-color 0.2s, transform 0.2s;
+    position: fixed; /* Fixed position on viewport */
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 50; /* Ensure it's above other content */
+    display: none; /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+}
+#scrollToTopBtn:hover {
+    transform: scale(1.1) translateY(-2px); /* Slight lift and scale on hover */
+}

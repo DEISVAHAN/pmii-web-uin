@@ -1,0 +1,589 @@
+/* public/css/kelola-notifikasi.css */
+
+/* CSS Variables for consistent theming based on PMII colors and general UI elements */
+:root {
+    --pmii-blue: #005c97;
+    --pmii-darkblue: #004a7c;
+    --pmii-yellow: #fdd835;
+    --pmii-purple: #6A0DAD;
+    --text-primary: #111827;
+    --text-secondary: #374151;
+    --text-muted: #6b7280;
+    --border-color: #e5e7eb;
+    --background-light: #f9fafb;
+    --background-page: #f3f4f6; /* Not directly used for body now, but kept for consistency */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --input-bg: white;
+    --navbar-height: 70px;
+
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --danger-hover: #dc2626;
+
+    /* New/Refined UI Colors */
+    --button-blue: var(--pmii-blue);
+    --button-blue-hover: var(--pmii-darkblue);
+    --button-yellow: var(--pmii-yellow);
+    --button-yellow-text: var(--pmii-darkblue);
+    --button-yellow-hover: #fbc02d;
+    --button-danger: var(--danger);
+    --button-danger-hover: var(--danger-hover);
+}
+
+/* Base body styles, enabling smooth scrolling, Inter font preference, and fade-out transition */
+body {
+    font-family: 'Inter', 'Poppins', sans-serif;
+    overflow-x: hidden;
+    background-color: var(--pmii-blue); /* Ensure the body background is blue for this page */
+    color: white; /* Default text color for the body */
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    transition: opacity 0.5s ease-out;
+}
+
+/* Class for fading out the page content */
+body.fade-out-page {
+    opacity: 0;
+}
+
+/* Main content wrapper to correctly position content below the potentially transparent/sticky navbar */
+.main-content-wrapper {
+    flex-grow: 1;
+    padding-top: calc(var(--navbar-height) + 1.5rem); /* Adjusted for kelola-notifikasi fixed content */
+    position: relative;
+    z-index: 1;
+}
+
+/* Navbar Styling: sticky position and dynamic appearance on scroll */
+.navbar-sticky {
+    position: sticky; top: 0; z-index: 50;
+    background-color: transparent; /* Initially transparent */
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Subtle initial shadow */
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    transition: padding 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Navbar links styling for the glossy/transparent state */
+.nav-link, .dropdown-toggle, #auth-link-main {
+    color: white !important; /* Always white for glossy state */
+    text-shadow: 0 0 5px rgba(255,255,255,0.3); /* Subtle text shadow for white text */
+    transform: translateY(0); /* Initial state for transform animation */
+    transition: color 0.25s ease-out, text-shadow 0.25s ease-out, transform 0.25s ease-out; /* Include transform in transition */
+}
+
+/* Underline effect for nav links, brighter for glossy state */
+.nav-link::after, .dropdown-toggle::after, #auth-link-main::after {
+    content: ''; position: absolute; width: 0; height: 2px; bottom: -2px; left: 50%;
+    transform: translateX(-50%);
+    background-image: linear-gradient(to right, var(--pmii-yellow), #fbc02d);
+    border-radius: 1px;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.nav-link.active-nav-link {
+    color: var(--pmii-yellow) !important;
+    font-weight: 700;
+}
+.nav-link.active-nav-link::after {
+    width: 80% !important; background-image: linear-gradient(to right, var(--pmii-yellow), #f5b300);
+}
+
+/* Navbar scrolled state (from index.html) */
+.navbar-scrolled {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+    padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;
+}
+.navbar-scrolled .nav-link, .navbar-scrolled .logo-text, .navbar-scrolled .dropdown-toggle, .navbar-scrolled #auth-link-main {
+    color: var(--pmii-darkblue) !important;
+    text-shadow: none;
+}
+.navbar-scrolled .menu-icon i {
+    color: var(--pmii-darkblue) !important;
+}
+.navbar-scrolled .nav-link.active-nav-link {
+    color: var(--pmii-blue) !important;
+}
+.navbar-scrolled .nav-link.active-nav-link::after {
+    background-image: linear-gradient(to right, var(--pmii-blue), var(--pmii-darkblue));
+}
+
+/* Hover effect for nav links */
+.nav-link:hover::after, .dropdown-toggle:hover::after, #auth-link-main:hover::after { width: 80%; }
+.nav-link:hover, .dropdown-toggle:hover, #auth-link-main:hover {
+    color: var(--pmii-yellow) !important; /* Yellow on hover for glossy state */
+    text-shadow: 0 0 15px var(--pmii-yellow); /* Stronger glow on hover */
+    transform: translateY(-1px); /* Add the subtle lift effect back */
+}
+.navbar-scrolled .nav-link:hover, .navbar-scrolled .dropdown-toggle:hover, .navbar-scrolled #auth-link-main:hover {
+    color: #e6a100 !important;
+    text-shadow: none;
+}
+.navbar-scrolled .nav-link:hover::after, .navbar-scrolled .dropdown-toggle:hover::after {
+    background-image: linear-gradient(to right, #e6a100, #fbc02d);
+}
+
+/* Dropdown chevron rotation on hover */
+.dropdown-toggle i {
+    transition: transform 0.2s ease-out;
+}
+.dropdown-toggle:hover i {
+    transform: rotate(180deg) scale(1.1);
+}
+
+/* Dropdown Menu specific styles for modern look */
+.dropdown-menu {
+    background-color: rgba(0, 74, 124, 0.8); /* Semi-transparent dark blue background for dropdown menu */
+    backdrop-filter: blur(5px); /* Apply blur to dropdown menus */
+    color: white; /* Ensure text in dropdown is white for good contrast */
+    box-shadow: var(--shadow-lg);
+    z-index: 100; border-radius: 0.5rem;
+    opacity: 0; visibility: hidden; transform: translateY(10px);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0.3s;
+    position: absolute; /* Ensures it's positioned relative to parent dropdown */
+    min-width: 150px; /* Adjust minimum width as needed */
+    right: 0; /* Align to the right for right-most dropdown */
+    transform-origin: top right; /* Ensure it scales from top right */
+    max-height: 300px; /* Added: Max height for scrollable dropdown */
+    overflow-y: auto; /* Added: Enable vertical scrolling */
+}
+/* Adjusted dropdown visibility for general use */
+.dropdown:hover .dropdown-menu,
+.dropdown.active .dropdown-menu { /* .active class for mobile/JS control */
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    color: white; /* White text for dropdown items */
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+    font-size: 0.875rem;
+    white-space: nowrap; /* Prevent text wrapping */
+}
+.dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Lighter background on hover */
+    color: var(--pmii-yellow); /* Yellow text on hover */
+}
+.dropdown-item i {
+    margin-right: 0.75rem;
+    color: var(--pmii-yellow); /* Icon color matches theme */
+}
+
+/* Mobile Menu Transitions */
+#mobile-menu-content { 
+    position: fixed; 
+    top: 0; 
+    right: 0; 
+    height: 100vh; /* Full viewport height */
+    width: calc(100% - 50px); /* Adjust width to leave a small gap on smaller screens */
+    max-width: 320px; /* Max width for larger mobiles */
+    background: linear-gradient(to bottom, var(--pmii-blue), var(--pmii-darkblue)); /* Gradient background */
+    color: white; 
+    padding: 6px; 
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.4); /* Strong shadow */
+    z-index: 40; 
+    transform: translateX(100%); /* Start off-screen */
+    opacity: 0; 
+    visibility: hidden; 
+    pointer-events: none; /* Prevent interaction when hidden */
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease-out, visibility 0.35s;
+    overflow-y: auto; /* Enable scrolling for long content */
+    box-sizing: border-box; /* Include padding in element's total width and height */
+    padding-bottom: 2rem; /* Add padding to the bottom */
+}
+/* State when menu is active/open */
+#mobile-menu-content.menu-active {
+    transform: translateX(0); /* Slide in */
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto; /* Allow interaction when visible */
+}
+
+/* Mobile Menu Overlay */
+#mobile-menu-overlay {
+    position: fixed;
+    inset: 0; /* Cover the whole viewport */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+    backdrop-filter: blur(5px); /* Blur effect on the overlay */
+    z-index: 30;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease-out, visibility 0.3s;
+}
+/* State when overlay is active/open */
+#mobile-menu-overlay.menu-active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Mobile menu logo and text size adjustment */
+#mobile-menu-content > div.flex.justify-between.items-center.mb-10 > a > img {
+    height: 2.25rem; /* h-9 */
+    width: auto; /* Maintain aspect ratio */
+}
+#mobile-menu-content > div.flex.justify-between.items-center.mb-10 > a > span {
+    font-size: 1.125rem; /* text-lg */
+    font-weight: 600; /* font-semibold */
+}
+
+/* General Button Styling for consistent look and feel */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; text-decoration: none;
+    box-shadow: var(--shadow-md);
+    z-index: 10; /* Ensure buttons are clickable */
+    position: relative; /* Needed for z-index to work */
+}
+.btn:hover {
+     box-shadow: var(--shadow-lg);
+     transform: translateY(-2px) scale(1.03); /* Subtle lift and scale on hover */
+}
+.btn:active {
+    transform: translateY(0px) scale(0.98);
+    box-shadow: var(--shadow-sm);
+}
+/* Primary button with PMII blue color */
+.btn-primary-pmii {
+    background-color: var(--pmii-blue); color: white;
+}
+.btn-primary-pmii:hover { background-color: var(--pmii-darkblue); }
+/* Secondary button with PMII yellow color */
+.btn-secondary-pmii {
+    background-color: var(--pmii-yellow); color: var(--pmii-darkblue);
+}
+.btn-secondary-pmii:hover { background-color: #fbc02d; }
+
+/* Auth Link Styling (Login/Logout button in navbar) */
+#auth-link-main, #auth-link-mobile { 
+    transition: all 0.25s ease; /* Ensure all properties transition */
+    padding: 0.625rem 1.25rem; 
+    font-size: 0.875rem; 
+}
+/* Styles for logged-out state (yellow button) */
+.logged-out-styles {
+    background-color: var(--pmii-yellow);
+    color: var(--pmii-blue);
+}
+.logged-out-styles:hover {
+    background-color: #fbc02d;
+}
+/* Styles for logged-in state (red logout button) */
+#auth-link-main.logout-active, #auth-link-mobile.logout-active {
+    background-image: linear-gradient(to right, #ef4444, #dc2626) !important; /* Red gradient */
+    color: white !important;
+}
+#auth-link-main.logout-active:hover, #auth-link-mobile.logout-active:hover {
+    background-image: linear-gradient(to right, #dc2626, #b91c1c) !important; /* Darker red on hover */
+}
+
+/* Custom Confirmation Modal Styles */
+.custom-confirm-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Dark semi-transparent background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999; /* Ensure it's on top of everything */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.custom-confirm-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+.custom-confirm-modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-lg);
+    max-width: 400px; /* Fixed max width for the modal */
+    width: 90%; /* Responsive width */
+    text-align: center;
+    transform: translateY(-20px) scale(0.95); /* Initial state for animation */
+    opacity: 0;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s ease;
+}
+.custom-confirm-modal-overlay.active .custom-confirm-modal-content {
+    transform: translateY(0) scale(1); /* Final state for animation */
+    opacity: 1;
+}
+.custom-confirm-modal-content h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--pmii-darkblue);
+    margin-bottom: 1rem;
+}
+.custom-confirm-modal-content p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+.custom-confirm-modal-content .modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+.custom-confirm-modal-content .modal-actions .btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+}
+
+/* New general background style for blue sections with subtle pattern */
+.section-pmii-bg-pattern {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--pmii-blue) 0%, var(--pmii-darkblue) 100%);
+    color: white; /* Default text color for the entire section */
+}
+/* Mobile menu logo and text size adjustment */
+#mobile-menu-content > div.flex.justify-between.items-center.mb-10 > a > img {
+    height: 2.25rem; /* h-9 */
+    width: auto; /* Maintain aspect ratio */
+}
+#mobile-menu-content > div.flex.justify-between.items-center.mb-10 > a > span {
+    font-size: 1.125rem; /* text-lg */
+    font-weight: 600; /* font-semibold */
+}
+/* Pseudo-element for pattern within blue sections */
+.section-pmii-bg-pattern::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+        radial-gradient(circle at 15% 25%, rgba(253, 216, 53, 0.07) 1px, transparent 1.5px),
+        radial-gradient(circle at 85% 75%, rgba(253, 216, 53, 0.05) 1px, transparent 1.5px),
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.04) 0.5px, transparent 1px);
+    background-size: 80px 80px, 100px 100px, 60px 60px;
+    animation: subtlePatternMoveContactKeyframe 40s linear infinite;
+    z-index: 0;
+}
+/* Keyframe for background pattern movement */
+@keyframes subtlePatternMoveContactKeyframe {
+    0% { background-position: 0 0, 0 0, 0 0; }
+    100% { background-position: 80px 80px, -100px -100px, 60px -60px; }
+}
+/* Ensure specific elements like titles are yellow in these sections */
+.section-pmii-bg-pattern .section-title {
+    color: var(--pmii-yellow);
+}
+
+/* Styling formulir & kartu */
+.form-input { 
+    width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border-color);
+    border-radius: 0.5rem; font-size: 0.875rem; color: var(--text-primary);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: var(--input-bg);
+}
+.form-input:focus {
+    border-color: var(--pmii-blue); box-shadow: 0 0 0 3px rgba(0, 92, 151, 0.15); outline: none;
+}
+.form-input.invalid {
+    border-color: var(--danger);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25);
+}
+.form-label { 
+    display: block; font-size: 0.875rem; font-weight: 600;
+    color: var(--text-secondary); margin-bottom: 0.5rem; 
+}
+.btn-sm { padding: 0.5rem 1rem; font-size: 0.875rem; }
+
+/* Pesan respons formulir */
+.form-message { padding: 1rem; border-radius: 0.5rem; font-weight: 500; text-align: center; display: flex; align-items: center; justify-content: center; gap: 0.5rem;}
+.form-message-success { background-color: #d1fae5; color: #065f46; }
+.form-message-error { background-color: #fce7e7; color: #cc3333; }
+.form-message-info { background-color: #dbeafe; color: #1e40af; }
+
+
+/* Styling kartu */
+.card {
+    background-color: white;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+    border: 1px solid var(--border-color);
+}
+
+/* Styling daftar item dinamis (berita, kegiatan) */
+.item-list-entry {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s, transform 0.2s;
+    cursor: grab; /* Kursor grab untuk item yang bisa di-drag */
+    border: 1px solid transparent; /* Untuk umpan balik visual drag */
+}
+.item-list-entry:nth-child(odd) {
+    background-color: var(--background-light);
+}
+ .item-list-entry:hover {
+    background-color: #e9ecef;
+}
+.item-list-entry.dragging {
+    opacity: 0.5;
+    border: 1px dashed var(--pmii-blue);
+}
+.item-list-entry.drag-over {
+    border-top: 2px solid var(--pmii-blue); /* Indikator visual untuk target drop */
+}
+
+/* Styling modal kustom */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.modal-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    transform: translateY(-20px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.modal-overlay.open .modal-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Area unggah gambar */
+.image-upload-area {
+    width: 100%;
+    height: 120px; /* Disesuaikan untuk pratinjau lebih kecil di item daftar */
+    background-color: var(--input-bg);
+    border: 2px dashed var(--border-color);
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.image-upload-area:hover {
+    border-color: var(--pmii-blue);
+    background-color: rgba(0, 92, 151, 0.05);
+}
+.image-upload-area input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+.image-preview-upload {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none; /* Tersembunyi secara default */
+}
+.image-upload-placeholder-text {
+    color: var(--text-muted);
+    font-size: 0.8rem; /* Font lebih kecil untuk item daftar */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    pointer-events: none; /* Memungkinkan klik melewati input */
+}
+.image-upload-placeholder-text i {
+    font-size: 1.5rem; /* Ikon lebih kecil untuk item daftar */
+    color: var(--text-muted);
+}
+/* Untuk gambar galeri, buat responsif di dalam grid */
+.gallery-item-edit-image {
+    width: 100%;
+    height: 80px; /* Tinggi tetap untuk thumbnail di daftar */
+    object-fit: cover;
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Styling Footer */
+.internal-footer {
+    background-color: var(--pmii-darkblue); 
+    color: #cbd5e1; 
+    padding: 2.5rem 1rem; 
+    margin-top: auto; 
+}
+.internal-footer p { 
+    color: #e5e7eb; 
+}
+.internal-footer .footer-title { 
+    color: white; 
+    font-weight: 600; 
+}
+.internal-footer img {
+    filter: none; /* Removed filter to show original logo colors */
+    -webkit-filter: none;
+}
+
+/* Scroll To Top Button Styling */
+#scrollToTopBtnManajemenAkun { /* Menggunakan ID yang konsisten dengan manajemen-akun.html */
+    background-color: var(--pmii-yellow);
+    color: var(--pmii-darkblue);
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    box-shadow: var(--shadow-lg);
+    transition: background-color 0.2s, transform 0.2s;
+    position: fixed; /* Fixed position on viewport */
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 50; /* Ensure it's above other content */
+    display: none; /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+}
+#scrollToTopBtnManajemenAkun:hover {
+    transform: scale(1.1) translateY(-2px); /* Slight lift and scale on hover */
+}

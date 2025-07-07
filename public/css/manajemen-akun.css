@@ -1,0 +1,241 @@
+/* public/css/manajemen-akun.css */
+
+/* Gaya yang SANGAT SPESIFIK untuk manajemen-akun.php */
+
+/* Judul halaman */
+.page-title {
+    color: white; /* Changed from default to white for dark background */
+    font-weight: 800;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+.page-subtitle {
+    color: rgba(255, 255, 255, 0.8); /* Lighter text for subtitle */
+}
+
+/* Bagian konten/kartu utama */
+.content-card {
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+    backdrop-filter: blur(5px); /* Frosted glass effect */
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Lighter border */
+    color: white; /* Default text color for card content */
+}
+.content-card:hover {
+    box-shadow: var(--shadow-lg);
+    background-color: rgba(255, 255, 255, 0.15); /* Slightly less transparent on hover */
+    border-color: var(--pmii-yellow); /* Yellow border on hover */
+}
+.content-card h2 {
+    color: var(--pmii-yellow); /* Yellow title for card */
+    border-bottom: 2px solid white;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+    font-weight: 700;
+}
+
+/* Gaya tabel */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+}
+th, td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Lighter border for dark table */
+    color: white; /* Text color for table cells */
+}
+th {
+    background-color: rgba(0, 0, 0, 0.3); /* Darker background for table header */
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+/* Striping and hover effect for table rows */
+tbody tr:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.1); /* Slightly darker for odd rows */
+}
+tbody tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.05); /* Slightly lighter for even rows */
+}
+tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.15); /* More pronounced highlight on hover */
+}
+
+/* Table action icons */
+.action-icon-group {
+    display: flex;
+    gap: 0.5rem; /* Space between icons */
+    justify-content: center; /* Center icons in the cell */
+}
+.action-icon-group button {
+    background: none;
+    border: none;
+    padding: 0.5rem; /* Padding for easier clicking */
+    border-radius: 9999px; /* Make it circular */
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
+    color: white; /* Default white color for all icons */
+}
+.action-icon-group button i {
+    font-size: 1rem; /* Icon size */
+    color: inherit; /* Inherit color from button for hover effect */
+}
+
+/* Hover effects for specific icons */
+.action-icon-group button[title="Edit Akun"]:hover {
+    background-color: rgba(0, 92, 151, 0.3); /* PMII Blue with transparency */
+    transform: scale(1.1);
+}
+.action-icon-group button[title="Edit Akun"]:hover i {
+    color: var(--pmii-blue);
+}
+
+.action-icon-group button[title="Reset Password"]:hover {
+    background-color: rgba(253, 216, 53, 0.3); /* PMII Yellow with transparency */
+    transform: scale(1.1);
+}
+.action-icon-group button[title="Reset Password"]:hover i {
+    color: var(--pmii-yellow);
+}
+
+.action-icon-group button[title="Lihat Log"]:hover {
+    background-color: rgba(99, 102, 241, 0.3); /* Indigo with transparency */
+    transform: scale(1.1);
+}
+.action-icon-group button[title="Lihat Log"]:hover i {
+    color: #6366f1; /* Indigo-500 */
+}
+
+.action-icon-group button[title="Hapus Akun"]:hover {
+    background-color: rgba(239, 68, 68, 0.3); /* Red with transparency */
+    transform: scale(1.1);
+}
+.action-icon-group button[title="Hapus Akun"]:hover i {
+    color: var(--danger);
+}
+
+
+/* Form elements within the card, similar to pengajuan-surat */
+.form-input, select.form-input, textarea.form-input {
+    width: 100%; padding: 0.875rem 1rem;
+    padding-top: 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+.form-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+select.form-input {
+     appearance: none;
+     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+     background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1.25em 1.25em;
+}
+.form-input:focus, select.form-input:focus, textarea.form-input:focus {
+    border-color: var(--pmii-yellow);
+    background-color: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 0 3px rgba(253, 216, 53, 0.2); outline: none;
+}
+.form-input:disabled {
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: not-allowed;
+    color: rgba(255, 255, 255, 0.5);
+}
+.form-label { /* Re-added for consistency */
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8); /* Lighter label for dark background */
+    margin-bottom: 0.375rem;
+}
+.btn-primary-modern {
+    background-color: var(--pmii-yellow);
+    color: var(--pmii-darkblue);
+    box-shadow: var(--shadow-sm);
+}
+.btn-primary-modern:hover {
+    background-color: #fbc02d;
+    color: var(--pmii-blue);
+    box-shadow: var(--shadow-md);
+}
+
+
+/* Scroll To Top Button Styling */
+#scrollToTopBtnManajemenAkun {
+    background-color: var(--pmii-yellow);
+    color: var(--pmii-darkblue);
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    box-shadow: var(--shadow-lg);
+    transition: background-color 0.2s, transform 0.2s;
+    position: fixed; /* Fixed position on viewport */
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 50; /* Ensure it's above other content */
+    display: none; /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+}
+#scrollToTopBtnManajemenAkun:hover {
+    transform: scale(1.1) translateY(-2px); /* Slight lift and scale on hover */
+}
+
+/* Specific form input styles for modal for consistency */
+.account-modal-content .form-input,
+.account-modal-content select.form-input,
+.reset-password-modal-content .form-input {
+    color: var(--text-primary); /* Dark text for light modal background */
+    background-color: var(--input-bg);
+    border-color: var(--border-color);
+}
+.account-modal-content .form-input::placeholder,
+.reset-password-modal-content .form-input::placeholder {
+    color: var(--text-muted);
+}
+.account-modal-content .form-input:focus,
+.account-modal-content select.form-input:focus,
+.reset-password-modal-content .form-input:focus {
+    border-color: var(--pmii-blue);
+    box-shadow: 0 0 0 3px rgba(0, 92, 151, 0.2);
+}
+.account-modal-content .form-label,
+.reset-password-modal-content .form-label {
+    color: var(--text-secondary);
+}
+.account-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+.account-modal-body, .reset-password-modal-body, .log-aktivitas-modal-body {
+    color: var(--text-secondary);
+}
+.account-modal-footer, .reset-password-modal-footer, .log-aktivitas-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding-top: 1rem;
+    margin-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+.status-dot {
+    height: 0.75rem; /* Larger dot */
+    width: 0.75rem; /* Larger dot */
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 0.4rem;
+    vertical-align: middle; /* Align with text */
+    border: 1px solid rgba(0,0,0,0.1); /* Subtle border for definition */
+}
+.status-aktif { background-color: var(--success); }
+.status-nonaktif { background-color: var(--danger); }
+.status-alumni { background-color: var(--text-muted); }

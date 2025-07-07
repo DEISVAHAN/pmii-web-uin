@@ -1,0 +1,204 @@
+/* public/css/digilib-buku-referensi.css */
+
+:root {
+    --pmii-blue: #005c97;
+    --pmii-darkblue: #004a7c;
+    --pmii-yellow: #fdd835;
+    --text-primary: #111827;
+    --text-secondary: #374151;
+    --text-muted: #6b7280;
+    --border-color: #e5e7eb;
+    --background-page: #f3f4f6;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --success-color: #22c55e; /* For approved status */
+}
+body {
+    font-family: 'Poppins', 'Inter', sans-serif;
+    background-color: var(--background-page);
+    color: var(--text-primary);
+}
+.internal-header { background-color: white; box-shadow: var(--shadow-md); border-bottom: 1px solid var(--border-color); }
+.logo-text { color: var(--pmii-blue); }
+#auth-info-header { background-color: var(--pmii-blue); color: white; padding: 0.6rem 1.2rem; border-radius: 0.5rem; transition: all 0.25s; font-weight: 500; }
+#auth-info-header:hover { background-color: var(--pmii-darkblue); transform: translateY(-2px); }
+#auth-info-header.logout-active { background-color: #ef4444 !important; }
+#auth-info-header.logout-active:hover { background-color: #dc2626 !important; }
+.page-title { color: var(--pmii-darkblue); font-weight: 800; }
+/* Consistent button styles from digilib.html */
+.btn-modern {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    box-shadow: var(--shadow-sm);
+}
+.btn-modern:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-md);
+}
+.btn-modern:active {
+    transform: translateY(0px) scale(0.98);
+}
+.btn-primary-pmii {
+    background-color: var(--pmii-blue); color: white;
+}
+.btn-primary-pmii:hover { background-color: var(--pmii-darkblue); }
+.btn-outline-modern {
+    background-color: transparent;
+    color: var(--pmii-darkblue);
+    border: 1px solid var(--pmii-blue);
+}
+.btn-outline-modern:hover {
+    background-color: var(--pmii-blue);
+    color: white;
+    border-color: var(--pmii-blue);
+}
+
+/* Specific styles for this page's buttons, harmonized */
+.btn { padding: 0.6rem 1.25rem; border-radius: 0.5rem; font-weight: 600; font-size: 0.9rem; transition: all 0.25s; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; box-shadow: var(--shadow-sm); }
+.btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.btn:disabled { background-color: #9ca3af; cursor: not-allowed; }
+.btn-primary { background-color: var(--pmii-blue); color: white; }
+.btn-primary:hover:not(:disabled) { background-color: var(--pmii-darkblue); }
+.btn-danger { background-color: #ef4444; color: white; }
+.btn-danger:hover { background-color: #dc2626; }
+.btn-success { background-color: #22c55e; color: white; }
+.btn-success:hover { background-color: #16a34a; }
+.btn-outline { background-color: transparent; color: var(--text-secondary); border: 1px solid var(--border-color); }
+.btn-outline:hover { background-color: var(--background-page); }
+
+.book-card { background-color: white; border-radius: 0.75rem; overflow: hidden; box-shadow: var(--shadow-md); transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; cursor: pointer;} /* Added cursor:pointer */
+.book-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+.book-card .cover-image {
+    height: 280px;
+    background-color: #e5e7eb;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    position: relative; /* For overlay */
+}
+.book-card .cover-image::after { /* Overlay for hover effect */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color 0.3s ease;
+}
+.book-card:hover .cover-image::after {
+    background-color: rgba(0, 0, 0, 0.2); /* Darken on hover */
+}
+.book-card .card-content { padding: 1.25rem; display: flex; flex-direction: column; flex-grow: 1; }
+.book-card .book-title { font-weight: 700; color: var(--text-primary); font-size: 1.1rem; line-height: 1.4; flex-grow: 1; }
+.book-card .book-author { font-weight: 500; color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem; }
+.book-card .admin-actions { border-top: 1px solid var(--border-color); padding: 0.75rem 1.25rem; background-color: #f9fafb; display: none; }
+.book-card .action-buttons { /* For view detail button */
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.modal-overlay { transition: opacity 0.3s ease; }
+.modal-content { transition: transform 0.3s ease; }
+.admin-controls { display: none; }
+
+/* Custom Alert/Notification */
+#notification { transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out; }
+
+/* Universal Modal Styles (copied from digilib.html) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+.modal-content {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-lg);
+    max-width: 500px;
+    width: 90%;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+.modal-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--pmii-darkblue);
+}
+.modal-body {
+    line-height: 1.6;
+}
+.modal-body p {
+    margin-bottom: 0.5rem;
+}
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding-top: 1rem;
+    margin-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+ /* Custom Message Box Styles */
+#customMessageBox {
+    background-color: #333;
+    color: white;
+    min-width: 250px;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    right: 1rem; /* Adjust position */
+    top: 1rem; /* Adjust position */
+    z-index: 9999;
+}
+#customMessageBox.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+#customMessageBox.info {
+    background-color: #2196F3; /* Blue for info */
+}
+#customMessageBox.success {
+    background-color: #4CAF50; /* Green for success */
+}
+#customMessageBox.error {
+    background-color: #f44336; /* Red for error */
+}

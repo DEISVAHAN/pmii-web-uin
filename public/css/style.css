@@ -1,0 +1,996 @@
+/* public/css/style.css */
+
+/* CSS Variables for consistent theming based on PMII colors and general UI elements */
+:root {
+    --pmii-blue: #005c97;
+    --pmii-darkblue: #004a7c;
+    --pmii-yellow: #fdd835;
+    --pmii-purple: #6A0DAD; /* Added purple color variable */
+    --text-primary: #111827; /* Dark text for light backgrounds */
+    --text-secondary: #374151; /* Medium dark text */
+    --text-muted: #6b7280; /* Lighter text for subtle info */
+    --border-color: #e5e7eb; /* Light gray border */
+    --background-light: #f9fafb; /* Very light background */
+    --background-page: #f3f4f6; /* Default page background */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --input-bg: white; /* Default for input fields */
+    --navbar-height: 70px; /* Estimated height of your navbar */
+    --danger-color: #ef4444; /* Added from manajemen-akun.html */
+    --danger-hover-color: #dc2626; /* Added from manajemen-akun.html */
+    --success: #22c55e;
+    --warning: #f59e0b;
+}
+
+/* Basic reset for html and body margins/paddings */
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Base body styles, enabling smooth scrolling, Inter font preference, and fade-out transition */
+body {
+    font-family: 'Inter', 'Poppins', sans-serif; /* Prioritize Inter */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    background-color: transparent; /* Makes hero background visible behind header */
+    color: var(--text-primary);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    transition: opacity 0.5s ease-out; /* Smooth fade-out for page transitions */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Class for fading out the page content */
+body.fade-out-page {
+    opacity: 0;
+}
+
+/* Main content wrapper to correctly position content below the potentially transparent/sticky navbar */
+.main-content-wrapper {
+    flex-grow: 1; /* Allows content to push footer to bottom */
+    margin-top: calc(-1 * var(--navbar-height)); /* Pulls content up under the fixed/sticky navbar */
+    position: relative; /* Establishes stacking context */
+    z-index: 1; /* Ensures content is above elements rendered below it */
+}
+
+/* Hero Section Enhancements for visual appeal and responsiveness */
+.hero-bg-enhanced {
+    background: linear-gradient(135deg, var(--pmii-blue) 0%, var(--pmii-purple) 100%); /* Pure gradient background */
+    position: relative; /* Needed for absolute positioning of the images */
+    overflow: hidden;
+    min-height: calc(100vh - var(--navbar-height)); /* Ensure hero section takes remaining height */
+    padding-top: var(--navbar-height); /* Push content down to start below the navbar */
+    display: flex; /* Use flexbox to center content vertically */
+    align-items: center; /* Center content vertically */
+    justify-content: flex-start; /* Align content container to left */
+    padding-left: 2rem; /* Initial padding for content from left edge */
+}
+
+/* Image on the left side of the hero section */
+.hero-left-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%; /* Fill height of the hero section */
+    width: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Cover the area, cropping if necessary */
+    z-index: 2; /* ABOVE the main gradient and overlay */
+    /* Add a mask to blend the right side into transparency */
+    mask-image: linear-gradient(to right, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%); /* Webkit support */
+    /* Add a subtle animation for the image */
+    animation: imageSlideInLeft 1.5s ease-out forwards;
+    opacity: 0; /* Start hidden */
+    transform: translateX(-100px); /* Start slightly off-screen to the left */
+}
+
+@keyframes imageSlideInLeft {
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Image on the right side of the hero section */
+.hero-right-image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%; /* Fill height of the hero section */
+    width: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Cover the area, cropping if necessary */
+    z-index: 2; /* ABOVE the main gradient and overlay */
+    /* Add a mask to blend the left side into transparency */
+    mask-image: linear-gradient(to left, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%); /* Fade out towards left */
+    -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%); /* Webkit support */
+    /* Add a subtle animation for the image */
+    animation: imageSlideInRight 1.5s ease-out forwards;
+    animation-delay: 0.2s; /* Slightly delay right image animation */
+    opacity: 0; /* Start hidden */
+    transform: translateX(100px); /* Start slightly off-screen to the right */
+}
+
+@keyframes imageSlideInRight {
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Overlay for the entire hero section, behind the content box, for better text readability */
+.hero-bg-enhanced::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 74, 124, 0.6); /* Semi-transparent dark blue overlay */
+    z-index: 1; /* Positions it below the actual content but above the background image */
+}
+
+/* Container for the hero content, now aligned to the left */
+.hero-content-container {
+    position: relative; /* Default relative positioning for smaller screens */
+    z-index: 3; /* Ensures content is above the overlay and images */
+    /* padding-top: 5vh; REMOVED */
+    padding-bottom: 5vh;
+    display: flex;
+    justify-content: flex-start; /* Align to the start (left) */
+    align-items: center; /* Center vertically */
+    min-height: auto; /* Reset min-height as parent is now managing height */
+    text-align: left; /* Align text content to the left */
+    width: 100%; /* Take full width of parent (hero-bg-enhanced) */
+    max-width: 1200px; /* Constrain content width */
+    margin: 0 auto; /* Center content container horizontally */
+}
+
+/* The floating, frosted glass effect box for hero text content */
+.hero-text-box {
+    background-color: rgba(255, 255, 255, 0.15); /* Semi-transparent white */
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+    border-radius: 1.5rem; /* Large rounded corners */
+    padding: 2rem; /* Reduced padding */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.2); /* Stronger shadow and subtle inner border */
+    max-width: 550px; /* Increased max-width for a wider box */
+    margin-left: 0; /* Remove fixed left margin */
+    margin-right: auto; /* Push to left, allow auto on right within flex container */
+    color: white; /* Text color inside the box */
+    animation: floatEffect 5s ease-in-out infinite alternate; /* Subtle floating animation */
+    transform: translateY(0); /* Initial state for animation */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align internal content (text, button) to the start (left) */
+    text-align: left; /* Ensure text is left-aligned */
+    width: 100%; /* Take full width up to max-width */
+}
+
+/* Keyframe animation for the subtle floating effect of the hero text box */
+@keyframes floatEffect {
+    0% { transform: translateY(0px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.2); }
+    100% { transform: translateY(-15px); box-shadow: 0 25px 40px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.25); }
+}
+
+/* Animations for elements appearing inside the text box with staggering delays */
+.hero-text-box > *:nth-child(1) { /* "WEBSITE RESMI" badge */
+    animation: fadeInScale 1s ease-out forwards;
+    animation-delay: 0.8s;
+    opacity: 0;
+    transform: scale(0.9);
+}
+.hero-text-box > *:nth-child(2) { /* h1 title */
+    animation: fadeInScale 1s ease-out forwards;
+    animation-delay: 1.2s;
+    opacity: 0;
+    transform: scale(0.9);
+}
+.hero-text-box > *:nth-child(3) { /* "Jelajahi Lebih Lanjut" button */
+    animation: fadeInScale 1s ease-out forwards;
+    animation-delay: 1.6s;
+    opacity: 0;
+    transform: scale(0.9);
+}
+/* Keyframe animation for fading in and scaling up */
+@keyframes fadeInScale {
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Navbar Styling: sticky position and dynamic appearance on scroll */
+.navbar-sticky {
+    position: sticky; top: 0; z-index: 50;
+    background-color: transparent; /* Initially transparent */
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Subtle initial shadow */
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    transition: padding 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Navbar links styling for the glossy/transparent state */
+.nav-link, .dropdown-toggle, #auth-link-main {
+    color: white !important; /* Always white for glossy state */
+    text-shadow: 0 0 5px rgba(255,255,255,0.3); /* Subtle text shadow for white text */
+    transform: translateY(0); /* Initial state for transform animation */
+    transition: color 0.25s ease-out, text-shadow 0.25s ease-out, transform 0.25s ease-out; /* Include transform in transition */
+}
+
+/* Underline effect for nav links, brighter for glossy state */
+.nav-link::after, .dropdown-toggle::after, #auth-link-main::after {
+    content: ''; position: absolute; width: 0; height: 2px; bottom: -2px; left: 50%;
+    transform: translateX(-50%); background-image: linear-gradient(to right, var(--pmii-yellow), #fbc02d); /* Brighter yellow */
+    border-radius: 1px;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 10px rgba(253, 216, 53, 0.8); /* Brighter glow */
+}
+.nav-link:hover::after, .dropdown-toggle:hover::after { width: 80%; }
+
+/* Underline effect in scrolled state (darker colors) */
+.navbar-scrolled .nav-link::after,
+.navbar-scrolled .dropdown-toggle::after,
+.navbar-scrolled #auth-link-main::after {
+    background-image: linear-gradient(to right, var(--pmii-blue), var(--pmii-darkblue)); /* Darker blue */
+    box-shadow: none; /* No glow */
+}
+
+
+/* Hover effect for nav links */
+.nav-link:hover, .dropdown-toggle:hover, #auth-link-main:not(.logout-active):hover { /* Exclude logout button */
+    color: var(--pmii-yellow) !important; /* Yellow on hover for glossy state */
+    text-shadow: 0 0 15px var(--pmii-yellow); /* Stronger glow on hover */
+    transform: translateY(-1px); /* Add the subtle lift effect back */
+}
+
+/* Hover effect in scrolled state (darker yellow) */
+.navbar-scrolled .nav-link:hover,
+.navbar-scrolled .dropdown-toggle:hover,
+.navbar-scrolled #auth-link-main:not(.logout-active):hover { /* Exclude logout button */
+    color: #e6a100 !important; /* Darker yellow on hover when scrolled */
+    text-shadow: none !important; /* No text shadow when scrolled */
+    transform: translateY(-2px); /* Keep lift effect */
+}
+.navbar-scrolled .nav-link:hover::after,
+.navbar-scrolled .dropdown-toggle:hover::after {
+    background-image: linear-gradient(to right, #e6a100, #fbc02d);
+}
+
+.nav-link.active-nav-link {
+    color: var(--pmii-yellow) !important; /* Active link yellow for glossy state */
+    font-weight: 700;
+}
+.nav-link.active-nav-link::after { width: 80% !important; background-image: linear-gradient(to right, var(--pmii-yellow), #f5b300); }
+.navbar-scrolled .nav-link.active-nav-link { color: var(--pmii-blue) !important; }
+.navbar-scrolled .nav-link.active-nav-link::after { background-image: linear-gradient(to right, var(--pmii-blue), var(--pmii-darkblue)); }
+
+
+/* Dropdown chevron rotation on hover */
+.dropdown-toggle i {
+    transition: transform 0.2s ease-out;
+}
+.dropdown-toggle:hover i {
+    transform: rotate(180deg) scale(1.1);
+}
+
+/* Dropdown Menu specific styles for modern look */
+.dropdown-menu {
+    background-color: rgba(0, 74, 124, 0.8); /* Semi-transparent dark blue background for dropdown menu */
+    backdrop-filter: blur(5px); /* Apply blur to dropdown menus */
+    color: white; /* Ensure text in dropdown is white for good contrast */
+    box-shadow: var(--shadow-lg);
+    z-index: 100; min-width: 280px; border-radius: 0.5rem;
+    opacity: 0; visibility: hidden; transform: translateY(10px);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0.3s;
+    position: absolute; /* Ensures it's positioned relative to parent dropdown */
+    min-width: 150px; /* Adjust minimum width as needed */
+    left: 50%; /* Center dropdown under its parent button */
+    transform: translateX(-50%) translateY(10px); /* Center and offset initially */
+    max-height: 300px; /* Added: Max height for scrollable dropdown */
+    overflow-y: auto; /* Added: Enable vertical scrolling */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Add subtle border to dropdown */
+    padding: 0.5rem 0;
+}
+.dropdown:hover .dropdown-menu,
+.dropdown.active .dropdown-menu { /* .active class for mobile/JS control */
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0); /* Final state on hover/active */
+}
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    color: white !important; /* White text for dropdown items */
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+    font-size: 0.875rem;
+    white-space: nowrap; /* Prevent text wrapping */
+}
+.dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Lighter background on hover */
+    color: var(--pmii-yellow) !important; /* Yellow text on hover */
+}
+.dropdown-item i {
+    margin-right: 0.75rem;
+    color: var(--pmii-yellow); /* Icon color matches theme */
+}
+
+
+/* Mobile Menu Transitions */
+#mobile-menu-content {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh; /* Full viewport height */
+    width: calc(100% - 50px); /* Adjust width to leave a small gap on smaller screens */
+    max-width: 320px; /* Max width for larger mobiles */
+    background: linear-gradient(to bottom, var(--pmii-blue), var(--pmii-darkblue)); /* Gradient background */
+    color: white;
+    padding: 6px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.4); /* Strong shadow */
+    z-index: 40;
+    transform: translateX(100%); /* Start off-screen */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; /* Prevent interaction when hidden */
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease-out, visibility 0.35s;
+    box-sizing: border-box; /* Include padding in element's total width and height */
+    padding-bottom: 2rem; /* Add padding to the bottom */
+}
+/* State when menu is active/open */
+#mobile-menu-content.menu-active {
+    transform: translateX(0); /* Slide in */
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto; /* Allow interaction when visible */
+}
+
+/* Mobile Menu Overlay */
+#mobile-menu-overlay {
+    position: fixed;
+    inset: 0; /* Cover the whole viewport */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+    backdrop-filter: blur(5px); /* Blur effect on the overlay */
+    z-index: 30;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease-out, visibility 0.3s;
+}
+/* State when overlay is active/open */
+#mobile-menu-overlay.menu-active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.mobile-nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+    border-radius: 0.375rem; /* rounded-md */
+}
+.mobile-nav-link i {
+    margin-right: 0.75rem; /* mr-3 */
+    width: 1.5rem; /* Fixed width for icons */
+    text-align: center;
+    color: var(--pmii-yellow);
+}
+.mobile-nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--pmii-yellow);
+}
+
+.mobile-submenu-title {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem; /* text-sm */
+    font-weight: 600; /* font-semibold */
+    color: var(--pmii-yellow);
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.mobile-submenu-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1.5rem; /* Indent sub-menu items */
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+    font-size: 0.8125rem; /* text-sm slightly smaller */
+    border-radius: 0.375rem; /* rounded-md */
+}
+.mobile-submenu-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--pmii-yellow);
+}
+.mobile-submenu-item:hover i {
+    color: var(--pmii-yellow);
+}
+
+/* General Button Styling for consistent look and feel */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; text-decoration: none;
+    box-shadow: var(--shadow-md);
+    z-index: 10;
+    position: relative;
+}
+.btn:hover {
+     box-shadow: var(--shadow-lg);
+     transform: translateY(-2px) scale(1.03);
+}
+.btn:active {
+    transform: translateY(0px) scale(0.98);
+    box-shadow: var(--shadow-sm);
+}
+/* Primary button with PMII blue color */
+.btn-primary-pmii {
+    background-color: var(--pmii-blue); color: white;
+}
+.btn-primary-pmii:hover { background-color: var(--pmii-darkblue); }
+/* Secondary button with PMII yellow color */
+.btn-secondary-pmii {
+    background-color: var(--pmii-yellow); color: var(--pmii-darkblue);
+}
+.btn-secondary-pmii:hover { background-color: #fbc02d; }
+
+/* Auth Link Styling (Login/Logout button in navbar) */
+#auth-link-main, #auth-link-mobile {
+    transition: all 0.25s ease;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+}
+/* Styles for logged-out state (yellow button) */
+.logged-out-styles {
+    background-color: var(--pmii-yellow);
+    color: var(--pmii-blue);
+}
+.logged-out-styles:hover {
+    background-color: #fbc02d;
+}
+/* Styles for logged-in state (red logout button) */
+#auth-link-main.logout-active, #auth-link-mobile.logout-active {
+    background-image: linear-gradient(to right, #ef4444, #dc2626) !important;
+    color: white !important;
+}
+#auth-link-main.logout-active:hover, #auth-link-mobile.logout-active:hover {
+    background-image: linear-gradient(to right, #dc2626, #b91c1c) !important;
+    color: white !important;
+}
+
+/* Custom Confirmation Modal Styles */
+.custom-confirm-modal-overlay, .account-modal-overlay, .reset-password-modal-overlay, .log-aktivitas-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Dark semi-transparent background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.custom-confirm-modal-overlay.active, .account-modal-overlay.active, .reset-password-modal-overlay.active, .log-aktivitas-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+.custom-confirm-modal-content, .account-modal-content, .reset-password-modal-content, .log-aktivitas-modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-lg);
+    max-width: 400px; /* Fixed max width for the modal */
+    width: 90%; /* Responsive width */
+    text-align: center;
+    transform: translateY(-20px) scale(0.95);
+    opacity: 0;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s ease;
+}
+.account-modal-content {
+    max-width: 500px; /* Larger for account modal */
+    max-height: 90vh; /* Set maximum height to 90% of viewport height */
+    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+    text-align: left; /* Align text left in account modal */
+}
+
+.custom-confirm-modal-overlay.active .custom-confirm-modal-content,
+.account-modal-overlay.active .account-modal-content,
+.reset-password-modal-overlay.active .reset-password-modal-content,
+.log-aktivitas-modal-overlay.active .log-aktivitas-modal-content {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+.custom-confirm-modal-content h3, .reset-password-modal-content h3, .log-aktivitas-modal-content h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--pmii-darkblue);
+    margin-bottom: 1rem;
+}
+.account-modal-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--pmii-darkblue);
+}
+.custom-confirm-modal-content p, .reset-password-modal-content p, .log-aktivitas-modal-content p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+.modal-actions .btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+}
+
+/* New general background style for blue sections with subtle pattern */
+.section-pmii-bg-pattern {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--pmii-blue) 0%, var(--pmii-darkblue) 100%);
+    color: white; /* Default text color for the entire section */
+    /* Tambahan padding untuk membuat latar belakang biru lebih terlihat */
+    padding-left: 1rem; /* Tambahkan padding horizontal */
+    padding-right: 1rem; /* Tambahkan padding horizontal */
+}
+
+/* Mobile menu logo and text size adjustment */
+#mobile-menu-content > div.flex.justify-between.items-center.mb-10 > a > img {
+    height: 2.25rem; /* h-9 */
+    width: auto; /* Maintain aspect ratio */
+}
+#mobile-menu-content > div.flex.justify-between.items-center.mb-10 > a > span {
+    font-size: 1.125rem; /* text-lg */
+    font-weight: 600; /* font-semibold */
+}
+/* Pseudo-element for pattern within blue sections */
+.section-pmii-bg-pattern::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+        radial-gradient(circle at 15% 25%, rgba(253, 216, 53, 0.07) 1px, transparent 1.5px),
+        radial-gradient(circle at 85% 75%, rgba(253, 216, 53, 0.05) 1px, transparent 1.5px),
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.04) 0.5px, transparent 1px);
+    background-size: 80px 80px, 100px 100px, 60px 60px;
+    animation: subtlePatternMoveContactKeyframe 40s linear infinite;
+    z-index: 0;
+}
+/* Keyframe for background pattern movement */
+@keyframes subtlePatternMoveContactKeyframe {
+    0% { background-position: 0 0, 0 0, 0 0; }
+    100% { background-position: 80px 80px, -100px -100px, 60px -60px; }
+}
+
+/* Ensure specific elements like titles are yellow in these sections */
+.section-pmii-bg-pattern .section-title {
+    color: var(--pmii-yellow);
+}
+
+/* Specific styles for laporan-analisis.html content */
+.page-title {
+    color: white; /* Changed from default to white for dark background */
+    font-weight: 800;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
+.content-section {
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+    backdrop-filter: blur(5px); /* Frosted glass effect */
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Lighter border */
+    color: white; /* Default text color for card content */
+}
+.content-section:hover {
+    box-shadow: var(--shadow-lg);
+    background-color: rgba(255, 255, 255, 0.15); /* Slightly less transparent on hover */
+    border-color: rgba(253, 216, 53, 0.5); /* Yellow border on hover */
+}
+.content-section h2, .content-section h3 {
+    color: var(--pmii-yellow); /* Yellow title for card */
+    border-bottom: 2px solid white;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+    font-weight: 700;
+}
+
+/* Form Input Styling for a clean and modern look */
+.form-input {
+    width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border-color);
+    border-radius: 0.5rem; font-size: 0.875rem; color: var(--text-primary);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: var(--input-bg);
+    color: var(--text-primary); /* Ensure text is readable */
+}
+.form-input:focus {
+    border-color: var(--pmii-blue); box-shadow: 0 0 0 3px rgba(0, 92, 151, 0.15); outline: none;
+    background-color: white; /* White background on focus */
+}
+.form-input.dark-mode {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+.form-input.dark-mode::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+.form-input.dark-mode:focus {
+    border-color: var(--pmii-yellow);
+    box-shadow: 0 0 0 3px rgba(253, 216, 53, 0.2);
+    background-color: rgba(255, 255, 255, 0.15);
+}
+/* Label for form inputs */
+.form-label {
+    display: block; font-size: 0.875rem; font-weight: 500;
+    color: white; /* Labels in dark theme should be white */
+    margin-bottom: 0.375rem;
+}
+
+/* Form Message Styling (for feedback messages) */
+.form-message-container {
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease-out;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+.form-message-container.show {
+    opacity: 1;
+    max-height: 100px; /* Adjust based on content height */
+    margin-bottom: 1.25rem;
+}
+.form-message-success { background-color: #dcfce7; color: #166534; border: 1px solid #86efac; }
+.form-message-error { background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+.form-message-info { background-color: #bfdbfe; color: #1e40af; border: 1px solid #93c5fd; }
+
+/* Scroll To Top Button Styling */
+#scrollToTopBtn { /* Updated ID to match index.html */
+    background-color: var(--pmii-yellow);
+    color: var(--pmii-darkblue);
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    box-shadow: var(--shadow-lg);
+    transition: background-color 0.2s, transform 0.2s;
+    position: fixed; /* Fixed position on viewport */
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 50; /* Ensure it's above other content */
+    display: none; /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+}
+#scrollToTopBtn:hover { /* Updated ID to match index.html */
+    transform: scale(1.1) translateY(-2px); /* Slight lift and scale on hover */
+}
+
+/* Logo Preview Styling */
+#logoPreview {
+    max-width: 100px;
+    max-height: 100px;
+    margin-top: 10px;
+    border-radius: 8px;
+    display: none; /* Hidden by default */
+    object-fit: contain; /* Ensure the image fits within the bounds without stretching */
+    background-color: rgba(255,255,255,0.1); /* Subtle background for preview area */
+    padding: 5px;
+}
+/* Styles for TTD Status section on generate-qr.html */
+.komisariat-logo-display {
+    max-width: 120px; /* Adjust size as needed */
+    margin: 0 auto 1.5rem auto; /* Center and add margin below */
+    display: block;
+    border-radius: 8px; /* Rounded corners for the logo */
+    box-shadow: var(--shadow-md); /* Subtle shadow */
+    background-color: rgba(255,255,255,0.1); /* Light background for logo */
+    padding: 5px;
+}
+/* Styles for inner white cards within blue sections */
+.section-pmii-bg-pattern .card-hover,
+.section-pmii-bg-pattern .activity-card-enhanced {
+    background-color: white; /* Keep the cards themselves white */
+}
+/* Ensure text inside white cards remains dark for readability */
+.section-pmii-bg-pattern .card-hover h3,
+.section-pmii-bg-pattern .card-hover p,
+.section-pmii-bg-pattern .card-hover .text-pmii-blue, /* for category span in news */
+.section-pmii-bg-pattern .activity-card-enhanced h3,
+.section-pmii-bg-pattern .activity-card-enhanced p,
+.section-pmii-bg-pattern .activity-card-enhanced .activity-info-line,
+.section-pmii-bg-pattern .activity-card-enhanced .activity-info-line i {
+    color: var(--text-primary); /* Keep text inside white cards dark */
+}
+.section-pmii-bg-pattern .card-hover .detail-link,
+.section-pmii-bg-pattern .activity-card-enhanced .detail-link {
+    color: var(--pmii-blue); /* Keep detail link blue in white cards */
+}
+
+/* Specific style for PMII logo in About Us section for animation */
+.pmii-logo-about-us-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    flex-shrink: 0; /* Prevents logo container from shrinking */
+}
+.pmii-logo-about-us {
+    width: 300px; /* Increased size of the logo image */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain;
+    opacity: 0; /* Initially hidden for animation */
+    transform: translateY(70px) scale(0.6) rotate(-15deg); /* Exaggerated initial state */
+    filter: blur(8px); /* Blur effect */
+    transition: opacity 1.2s ease-out, transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 1.2s ease-out; /* Smooth, complex easing */
+}
+.animated-section.is-visible .pmii-logo-about-us {
+    opacity: 1; /* Fade in when visible */
+    transform: translateY(0) scale(1) rotate(0deg); /* Move to original position, scale up, straighten */
+    filter: blur(0); /* Remove blur */
+}
+
+/* Adjust alignment and spacing for the About Us section on larger screens */
+@media (min-width: 1024px) {
+    #tentang .flex-col.lg\:flex-row {
+        justify-content: center; /* Center the whole block on large screens */
+        align-items: center; /* Vertically center content */
+        gap: 2rem; /* Adjusted gap between logo and text */
+    }
+    #tentang .text-md.text-white.space-y-6 {
+        flex-grow: 1; /* Allow text to take remaining space */
+        width: auto; /* Let flex-grow manage width */
+        max-width: 600px; /* Optional: constrain max width for text block */
+        text-align: left; /* Align text to the left within its container */
+    }
+}
+/* Further adjust text alignment for smaller screens if needed */
+@media (max-width: 1023px) {
+     #tentang .text-md.text-white.space-y-6 {
+        text-align: center; /* Center text on smaller screens */
+    }
+}
+
+/* Footer Styling */
+.main-footer {
+    background: linear-gradient(to top, var(--pmii-darkblue), var(--pmii-blue)); /* Gradient background for footer */
+    color: white;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    position: relative;
+    overflow: hidden;
+}
+.main-footer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image:
+        radial-gradient(circle at 20% 80%, rgba(253, 216, 53, 0.05) 1px, transparent 1.5px),
+        radial-gradient(circle at 80% 20%, rgba(253, 216, 53, 0.03) 1px, transparent 1.5px);
+    background-size: 60px 60px, 80px 80px;
+    animation: subtlePatternMoveFooter 30s linear infinite reverse; /* Reverse animation for variety */
+    z-index: 0;
+}
+@keyframes subtlePatternMoveFooter {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: -60px -60px, 80px 80px; }
+}
+.main-footer .container {
+    position: relative; /* Ensure content is above pseudo-element */
+    z-index: 1;
+}
+
+/* Ensure footer image maintains aspect ratio and text is white */
+.main-footer img {
+    height: 3rem; /* Fixed height, e.g., 48px */
+    width: auto; /* Auto width to maintain aspect ratio */
+    object-fit: contain; /* Ensure logo fits within its bounds without distortion */
+}
+
+.main-footer p {
+    color: white; /* Change all paragraph text in footer to white */
+}
+
+/* Adjustments for hero-content-container on large screens, considering navbar height */
+@media (min-width: 1024px) {
+    .hero-content-container {
+        /* top: var(--navbar-height); REMOVED */
+        height: calc(100% - var(--navbar-height)); /* Fills remaining space */
+        padding-top: 0; /* REMOVED excess padding-top */
+        min-height: auto; /* Resets min-height for absolute positioning */
+        padding-left: 0; padding-right: 0; padding-bottom: 0;
+    }
+}
+
+/* Custom Confirmation Modal Styling */
+.custom-confirm-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+    backdrop-filter: blur(5px); /* Frosted glass effect */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's on top of everything */
+    opacity: 0; /* Hidden by default */
+    visibility: hidden;
+    transition: opacity 0.3s ease-out, visibility 0.3s;
+}
+
+.custom-confirm-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.custom-confirm-modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 1rem; /* Rounded corners */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+    max-width: 400px; /* Max width for responsiveness */
+    width: 90%; /* Take 90% width on smaller screens */
+    text-align: center;
+    transform: scale(0.9); /* Start slightly smaller */
+    transition: transform 0.3s ease-out;
+}
+
+.custom-confirm-modal-overlay.active .custom-confirm-modal-content {
+    transform: scale(1); /* Scale to original size when active */
+}
+
+.custom-confirm-modal-content h3 {
+    font-size: 1.75rem; /* Larger title */
+    font-weight: 700; /* Bold title */
+    color: var(--pmii-darkblue); /* Dark blue color */
+    margin-bottom: 1rem;
+}
+
+.custom-confirm-modal-content p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.custom-confirm-modal-content .modal-actions {
+    display: flex;
+    justify-content: center; /* Center buttons */
+    gap: 1rem; /* Space between buttons */
+}
+
+/* Adjust button styles within the modal */
+.custom-confirm-modal-content .btn {
+    padding: 0.75rem 1.75rem; /* Larger padding for buttons */
+    font-size: 1rem; /* Readable font size */
+}
+
+/* Specific styling for the custom message box */
+#customMessageBox {
+    background-color: #333; /* Default dark background */
+    color: #fff; /* Default white text */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+#customMessageBox.bg-green-500 { background-color: #28a745; }
+#customMessageBox.bg-red-500 { background-color: #dc3545; }
+#customMessageBox.bg-blue-500 { background-color: #007bff; }
+
+/* New animations for sections and cards */
+.animated-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animated-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered animation for cards within containers */
+.animate-card-entry {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animated-section.is-visible .animate-card-entry {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Specific stagger delays (these will be overridden by JS for dynamic staggering) */
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+
+/* Pulse animation for announcement icon */
+@keyframes animatePulseSubtle {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.9; }
+}
+.animate-pulseSubtle {
+    animation: animatePulseSubtle 2s infinite ease-in-out;
+}
+
+/* Animation for about us text sliding in */
+.animate-slide-in-right-perspective {
+    opacity: 0;
+    transform: translateX(50px) rotateY(15deg);
+    transform-origin: left center;
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.animated-section.is-visible .animate-slide-in-right-perspective {
+    opacity: 1;
+    transform: translateX(0) rotateY(0deg);
+}
+
+/* Notification button styling */
+.notification-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: 50%;
+    background-color: transparent;
+    color: white;
+    font-size: 1.25rem;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+.notification-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--pmii-yellow);
+    transform: scale(1.1);
+}
+
+.notification-badge {
+    position: absolute;
+    top: 5px; /* Adjust as needed */
+    right: 5px; /* Adjust as needed */
+    background-color: #ef4444; /* Red color for badge */
+    color: white;
+    font-size: 0.65rem;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 0.2em 0.4em;
+    min-width: 1.2em;
+    text-align: center;
+    line-height: 1;
+    transform: scale(0) translate(50%, -50%); /* Start hidden and off-center */
+    transform-origin: center;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Pop effect */
+}
+
+.notification-badge.active {
+    transform: scale(1) translate(50%, -50%); /* Pop into view */
+}
+
+/* Navbar scrolled state adjustments for notification button */
+.navbar-scrolled .notification-button {
+    color: var(--pmii-blue); /* Darker color when scrolled */
+}
+.navbar-scrolled .notification-button:hover {
+    background-color: rgba(0, 92, 151, 0.1); /* Lighter blue background on hover when scrolled */
+    color: var(--pmii-darkblue);
+}

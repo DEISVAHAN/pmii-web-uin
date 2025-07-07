@@ -1,0 +1,175 @@
+/* public/css/dashboard-statistik.css */
+
+/* Gaya yang SANGAT SPESIFIK untuk dashboard-statistik.php */
+
+/* Main content wrapper untuk transisi fade-in (jika tidak diatur global di style.css) */
+.main-content-wrapper {
+    /* Hanya tambahkan gaya yang TIDAK ada di style.css atau perlu di-override */
+    opacity: 0;
+    transform: translateY(30px);
+    animation: pageFadeInUp 0.7s 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+@keyframes pageFadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+/* Judul halaman */
+.page-title {
+    /* Jika berbeda dari style.css yang mengatur .page-title */
+    color: var(--pmii-darkblue); /* Menjaga warna khusus untuk judul di sini */
+    font-weight: 800;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
+/* Bagian konten/kartu umum */
+.content-section {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+}
+.content-section h2, .content-section h3 {
+    color: var(--pmii-darkblue);
+    border-bottom: 2px solid var(--pmii-yellow);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+    font-weight: 700;
+}
+
+/* Card Statistik - Spesifik untuk halaman ini */
+.statistic-card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.statistic-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+.statistic-card .icon-wrapper {
+    background-color: var(--pmii-yellow);
+    color: var(--pmii-darkblue);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+    font-size: 1.5rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.statistic-card .value {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--pmii-blue);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+.statistic-card .label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Chart Container */
+.chart-container {
+    position: relative;
+    height: 400px;
+    width: 100%;
+}
+
+/* Tombol Kembali Modern - Jika ini hanya dipakai di dashboard, definisikan di sini */
+.btn-modern {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: var(--shadow-md);
+}
+.btn-modern:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px) scale(1.03);
+}
+.btn-modern:active {
+    transform: translateY(0px) scale(0.98);
+    box-shadow: var(--shadow-sm);
+}
+.btn-outline-modern {
+    background-color: transparent;
+    color: var(--pmii-blue);
+    border: 2px solid var(--pmii-blue);
+}
+.btn-outline-modern:hover {
+    background-color: var(--pmii-blue);
+    color: white;
+}
+
+/* Scroll To Top Button Styling - Jika ini hanya dipakai di dashboard, definisikan di sini */
+#scrollToTopBtn { /* Ini harus sesuai dengan ID di HTML */
+    background-color: var(--pmii-yellow);
+    color: var(--pmii-darkblue);
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    box-shadow: var(--shadow-lg);
+    transition: background-color 0.2s, transform 0.2s;
+    position: fixed; /* Fixed position on viewport */
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 50; /* Ensure it's above other content */
+    display: none; /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+}
+#scrollToTopBtn:hover {
+    transform: scale(1.1) translateY(-2px); /* Slight lift and scale on hover */
+}
+
+/* Quick Links/Tab Navigation - Spesifik untuk halaman ini */
+.quick-links-nav {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    margin-bottom: 2rem;
+}
+.quick-link-item {
+    display: inline-block;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background-color: var(--background-light);
+    transition: all 0.2s ease;
+    text-decoration: none;
+    text-align: center;
+    border: 1px solid var(--border-color);
+}
+.quick-link-item:hover {
+    background-color: #e5e7eb;
+    color: var(--pmii-darkblue);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+.quick-link-item.active-quick-link {
+    background-color: var(--pmii-blue);
+    color: white;
+    box-shadow: var(--shadow-md);
+}
+.quick-link-item.active-quick-link:hover {
+    background-color: var(--pmii-darkblue);
+    color: white;
+}

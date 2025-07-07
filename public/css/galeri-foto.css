@@ -1,0 +1,69 @@
+/* public/css/galeri-foto.css */
+
+/* Page Header Section Styling */
+.page-header-section {
+    background: linear-gradient(135deg, var(--pmii-blue), var(--pmii-darkblue));
+    color: white;
+    padding: 4rem 1rem;
+    text-align: center;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 2rem;
+}
+.page-header-section h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+.page-header-section p {
+    font-size: 1.125rem;
+    margin-top: 0.5rem;
+    opacity: 0.9;
+}
+
+/* Gallery Item Styling */
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-md);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid var(--border-color); /* Added border */
+}
+.gallery-item:hover {
+    transform: scale(1.03);
+    box-shadow: var(--shadow-lg);
+}
+.gallery-item img {
+    width: 100%;
+    height: 180px; /* Fixed height for consistent grid */
+    object-fit: cover;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+.gallery-item:hover img {
+    transform: scale(1.1);
+    filter: brightness(0.8);
+}
+.gallery-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.gallery-item:hover .gallery-caption {
+    opacity: 1;
+    transform: translateY(0);
+}
+.fancybox__content img { /* Adjust Fancybox image size */
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+}
